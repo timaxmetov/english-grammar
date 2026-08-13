@@ -2,53 +2,1899 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Грамматика английского — разборы</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PRESENT PERFECT CONTINUOUS — разбор в стиле Дэна</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f2f2f4;--ink:#111114;--gray:#8a8a95;--line:#e2e2e7;--acc:#8b5cf6}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:'Montserrat',Arial,sans-serif;
-  min-height:100vh;padding:48px 20px;line-height:1.6}
-.wrap{max-width:760px;margin:0 auto}
-.kicker{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);font-weight:600}
-h1{font-size:clamp(34px,9vw,64px);font-weight:800;line-height:.95;letter-spacing:-.02em;
-  text-transform:uppercase;margin:14px 0 10px;
-  background:linear-gradient(100deg,#6f6f7a,#111114 45%,#111114 65%,#7c7c88);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-p.lead{color:#4a4a52;max-width:520px}
-ul{list-style:none;margin-top:34px;display:grid;gap:12px}
-a.card{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ink);
-  background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;
-  transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s,box-shadow .35s}
-a.card:hover{transform:translateY(-3px);border-color:#c4b5fd;
-  box-shadow:0 24px 40px -30px rgba(80,40,160,.6)}
-a.card i{width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:var(--acc);color:#fff;
-  display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12px}
-a.card b{display:block;font-size:16px;font-weight:700}
-a.card span{display:block;font-size:13px;color:var(--gray)}
-footer{margin-top:44px;font-size:12px;color:var(--gray);border-top:1px solid var(--line);padding-top:18px}
+/* ============================================================
+   MOBILE FIRST. Базовые стили = телефон. Дальше — расширения.
+   ============================================================ */
+:root{
+  --bg:#f2f2f4;
+  --bg-2:#ffffff;
+  --ink:#111114;
+  --ink-2:#4a4a52;
+  --gray:#8a8a95;
+  --line:#e2e2e7;
+  --acc:#8b5cf6;
+  --acc-2:#a78bfa;
+  --acc-3:#c4b5fd;
+  --acc-deep:#6d3fd6;
+  --ok:#16a34a;
+  --err:#e11d48;
+  --r:18px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --pad:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  font-weight:400;
+  font-size:15px;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+button,input{font-family:inherit;font-size:inherit;color:inherit}
+::selection{background:var(--acc);color:#fff}
+
+/* ---------- ПРОГРЕСС-БАР ---------- */
+#progress{
+  position:fixed;top:0;left:0;height:4px;width:100%;z-index:200;
+  background:transparent;pointer-events:none;
+}
+#progress i{
+  display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,#6d3fd6,#8b5cf6,#c4b5fd,#8b5cf6);
+  background-size:300% 100%;
+  animation:flow 4s linear infinite;
+  box-shadow:0 0 18px rgba(139,92,246,.8);
+  transition:width .1s linear;
+}
+@keyframes flow{to{background-position:300% 0}}
+#pct{
+  position:fixed;top:10px;right:14px;z-index:200;
+  font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--gray);
+  font-variant-numeric:tabular-nums;pointer-events:none;
+  opacity:0;transition:opacity .4s;
+}
+#pct.on{opacity:1}
+
+/* ---------- ТОЧКИ-НАВИГАЦИЯ (desktop) ---------- */
+#dots{display:none}
+
+/* ---------- ОБЩАЯ СЕТКА ---------- */
+.wrap{max-width:1360px;margin:0 auto;padding:0 var(--pad)}
+section{position:relative}
+.sect{padding:64px 0}
+.rule{height:1px;background:var(--line);margin:0}
+
+/* ---------- ТИПОГРАФИКА ---------- */
+.h-giant{
+  font-weight:800;
+  /* самая длинная строка — CONTINUOUS, это ~6.9em.
+     Держим её внутри экрана, иначе hero её обрезает по overflow:hidden */
+  font-size:min(17vw,150px,calc((100vw - 2 * var(--pad) - 18px) / 7.15));
+  line-height:.86;
+  letter-spacing:-.03em;
+  text-transform:uppercase;
+}
+.h1{
+  font-weight:800;
+  font-size:clamp(30px,9vw,58px);
+  line-height:.94;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+}
+.grad{
+  background:linear-gradient(100deg,#8f8f99 0%,#111114 42%,#111114 62%,#9a9aa4 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:sweep 9s var(--ease) infinite alternate;
+}
+@keyframes sweep{to{background-position:100% 0}}
+.lead{color:var(--ink-2);font-size:15px;line-height:1.85;font-weight:400}
+.muted{color:var(--gray)}
+.acc{color:var(--acc)}
+.kicker{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gray);font-weight:600;
+}
+.num{font-size:12px;color:var(--gray);letter-spacing:.04em}
+
+/* ---------- ТОП-БАР КЕЙСА ---------- */
+.topbar{
+  display:flex;justify-content:space-between;gap:10px;
+  padding:18px var(--pad) 0;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:600;
+}
+.topbar span:nth-child(2){display:none}
+
+/* ---------- HERO ---------- */
+#hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(120% 80% at 80% 0%,#ffffff 0%,rgba(255,255,255,0) 60%),
+    linear-gradient(180deg,#f7f7f9,#eeeef1);
+  padding-bottom:40px;
+}
+.hero-noise{
+  position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(102deg,rgba(255,255,255,.7) 0 2px,rgba(0,0,0,.012) 2px 4px);
+  mix-blend-mode:overlay;
+}
+.hero-inner{position:relative;padding:26px var(--pad) 0;z-index:3}
+.hero-title{margin:14px 0 0}
+.hero-title .ln{display:block;overflow:hidden}
+/* градиент живёт на самих спанах: background не наследуется,
+   а текст лежит именно здесь, а не в самом h1 */
+.hero-title .ln span{
+  display:block;transform:translateY(110%);
+  background:linear-gradient(100deg,#6f6f7a 0%,#111114 40%,#111114 64%,#7c7c88 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+  animation:rise 1.1s var(--ease) forwards,sweep 9s var(--ease) infinite alternate;
+  animation-delay:0s,0s;
+}
+.hero-title .ln:nth-child(2) span{animation-delay:.12s,0s}
+.hero-title .ln:nth-child(3) span{animation-delay:.24s,0s}
+/* если движок не умеет background-clip:text — просто чёрный текст */
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad,.hero-title .ln span{background:none;color:var(--ink);-webkit-text-fill-color:currentColor}
+}
+@keyframes rise{to{transform:translateY(0)}}
+.hero-sub{margin-top:26px;max-width:520px;opacity:0;animation:fade .9s .6s var(--ease) forwards}
+@keyframes fade{to{opacity:1}}
+.hero-cta{
+  margin-top:26px;display:flex;flex-wrap:wrap;gap:12px;
+  opacity:0;animation:fade .9s .75s var(--ease) forwards;
+}
+.btn{
+  position:relative;border:0;cursor:pointer;overflow:hidden;
+  padding:16px 26px;border-radius:14px;
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  background:linear-gradient(135deg,#9b6bf0,#7c3aed);
+  color:#fff;
+  box-shadow:0 12px 30px -10px rgba(124,58,237,.75),inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.btn:active{transform:scale(.97)}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);
+  transform:translateX(-120%);
+}
+.btn:hover::after{animation:shine .8s var(--ease)}
+@keyframes shine{to{transform:translateX(120%)}}
+.btn.ghost{
+  background:transparent;color:var(--ink);
+  border:1.5px solid var(--acc);box-shadow:none;
+}
+.btn.ghost::after{display:none}
+
+/* ---------- 3D СЦЕНА (скотч + коробка) ---------- */
+.scene{
+  position:relative;height:260px;margin-top:10px;
+  perspective:900px;
+}
+.obj{position:absolute;will-change:transform}
+.tape-big{right:-24px;top:0;width:180px;animation:float 7s ease-in-out infinite}
+.box{left:-30px;bottom:0;width:200px;animation:float 9s ease-in-out infinite reverse}
+.tape-small{left:96px;bottom:-6px;width:96px;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-14px) rotate(2deg)}}
+.badges{
+  position:absolute;right:var(--pad);bottom:16px;display:flex;
+}
+.badge{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  font-size:10px;font-weight:800;color:#fff;margin-left:-12px;
+  box-shadow:0 8px 20px -6px rgba(0,0,0,.35);
+  border:2px solid #fff;
+}
+.b1{background:linear-gradient(140deg,#e0509b,#8b5cf6)}
+.b2{background:linear-gradient(140deg,#2b5cf0,#e0143c);font-size:9px}
+.b3{background:#ffd400;color:#111}
+
+/* ---------- СЕКЦИЯ: заголовок слева / текст справа ---------- */
+.duo{display:grid;gap:22px}
+.duo .side{display:flex;flex-direction:column;gap:14px}
+.foot-row{
+  display:flex;justify-content:space-between;gap:12px;
+  margin-top:26px;font-size:11px;color:var(--gray);
+}
+
+/* ---------- REVEAL ---------- */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.09s}.rv.d2{transition-delay:.18s}
+.rv.d3{transition-delay:.27s}.rv.d4{transition-delay:.36s}
+.rv.d5{transition-delay:.45s}.rv.d6{transition-delay:.54s}
+
+/* ---------- КАРТОЧКИ ---------- */
+.card{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s;
+}
+.card:hover{border-color:var(--acc-3);box-shadow:0 26px 50px -30px rgba(80,40,160,.4)}
+.tilt{transform-style:preserve-3d;will-change:transform}
+
+/* ---------- ЦИТАТА ДЭНА ---------- */
+.dan{
+  border-left:3px solid var(--acc);
+  padding:2px 0 2px 16px;margin:20px 0;
+  font-size:15px;line-height:1.8;color:var(--ink);
+}
+.dan p{margin-bottom:10px}
+.dan p:last-child{margin-bottom:0}
+.dan b{font-weight:700}
+.dan .say{color:var(--ink-2)}
+
+/* ---------- МНОГОСТУПЕНЧАТАЯ ДИАГРАММА ---------- */
+.stepper{margin-top:28px}
+.steps{
+  display:flex;flex-direction:column;gap:0;position:relative;
+}
+.step{
+  position:relative;display:flex;gap:14px;align-items:flex-start;
+  padding:0 0 22px 0;cursor:pointer;
+}
+.step:last-child{padding-bottom:0}
+.step .bul{
+  position:relative;flex:0 0 46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--bg-2);border:1.5px solid var(--line);
+  font-size:12px;font-weight:800;color:var(--gray);
+  transition:all .5s var(--ease);z-index:2;
+}
+.step .track{
+  position:absolute;left:22.5px;top:46px;bottom:0;width:3px;
+  background:var(--line);border-radius:2px;overflow:hidden;
+}
+.step:last-child .track{display:none}
+.step .track i{
+  display:block;height:0%;width:100%;
+  background:linear-gradient(180deg,var(--acc),var(--acc-3));
+  transition:height .7s var(--ease);
+}
+.step .body{
+  flex:1;background:var(--bg-2);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px;
+  transition:all .5s var(--ease);
+}
+.step .t{font-weight:700;font-size:14px;letter-spacing:-.01em}
+.step .chip{
+  display:inline-block;margin-top:8px;padding:6px 12px;border-radius:9px;
+  background:#f3efff;color:var(--acc-deep);font-weight:700;font-size:13px;
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;
+}
+.step .exp{
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .6s var(--ease),opacity .4s,margin .4s;
+  font-size:13px;color:var(--ink-2);line-height:1.7;
+}
+.step.on .bul{
+  background:linear-gradient(140deg,#9b6bf0,#6d3fd6);color:#fff;border-color:transparent;
+  transform:scale(1.08);box-shadow:0 10px 24px -8px rgba(109,63,214,.7);
+}
+.step.on .body{border-color:var(--acc-3);box-shadow:0 20px 40px -28px rgba(80,40,160,.5)}
+.step.on .track i{height:100%}
+.step.on .exp{max-height:220px;opacity:1;margin-top:10px}
+.assembled{
+  margin-top:22px;background:#fff;border:1px dashed var(--acc-3);border-radius:14px;
+  padding:18px 16px;text-align:center;
+}
+.assembled .out{
+  font-size:clamp(15px,4.6vw,24px);font-weight:700;letter-spacing:-.01em;
+  min-height:34px;
+}
+.assembled .out span{
+  display:inline-block;opacity:0;transform:translateY(12px) scale(.9);
+  transition:all .5s var(--ease);margin:0 3px;
+}
+.assembled .out span.on{opacity:1;transform:none}
+.assembled .out span.hl{color:var(--acc-deep)}
+.assembled .tr{margin-top:8px;font-size:13px;color:var(--gray)}
+
+/* ---------- ТАБЫ ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{
+  border:1.5px solid var(--line);background:var(--bg-2);border-radius:11px;
+  padding:11px 16px;font-size:11px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;cursor:pointer;color:var(--gray);
+  transition:all .35s var(--ease);
+}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pane{display:none;animation:pop .55s var(--ease)}
+.pane.on{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(16px)}}
+.formula{
+  font-family:ui-monospace,'SF Mono',Menlo,monospace;
+  background:linear-gradient(135deg,#1a1a20,#2a2136);color:#fff;
+  border-radius:14px;padding:16px;font-size:12.5px;line-height:1.9;
+  /* на телефоне переносим, а не заставляем скроллить вбок */
+  white-space:normal;overflow-wrap:anywhere;
+}
+.formula b{color:var(--acc-3)}
+.ex{list-style:none;margin-top:14px;display:grid;gap:10px}
+.ex li{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+  transition:.4s var(--ease);
+}
+.ex li:hover{transform:translateX(5px);border-color:var(--acc-3)}
+.ex .en{font-weight:600}
+.ex .en u{text-decoration:none;color:var(--acc-deep);border-bottom:2px solid var(--acc-3)}
+.ex .ru{font-size:13px;color:var(--gray);margin-top:3px}
+
+/* ---------- MARQUEE ---------- */
+.marq{overflow:hidden;padding:14px 0;border-block:1px solid var(--line);background:var(--bg-2)}
+.marq-in{display:flex;gap:14px;width:max-content;animation:slide 26s linear infinite}
+.marq:hover .marq-in{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.word{
+  border:1.5px solid var(--acc-3);color:var(--acc-deep);border-radius:999px;
+  padding:9px 18px;font-weight:700;font-size:13px;white-space:nowrap;background:#faf7ff;
+}
+.word.b{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- СРАВНЕНИЕ ---------- */
+.grid2{display:grid;gap:14px}
+.vs .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vs .tag{
+  font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 10px;border-radius:8px;background:#f3efff;color:var(--acc-deep);
+}
+.vs .tag.dark{background:var(--ink);color:#fff}
+.vs p{margin-top:10px;font-size:13.5px;color:var(--ink-2);line-height:1.75}
+.vs .q{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);font-size:13.5px}
+
+/* ---------- ВИДЕО-ПЛЕЕР ---------- */
+.player{
+  background:linear-gradient(160deg,#17131f,#241a35 60%,#150f1e);
+  border-radius:20px;overflow:hidden;border:1px solid #2e2440;
+  box-shadow:0 40px 80px -50px rgba(60,20,140,.9);
+}
+/* высота = пропорция узкого viewBox, чтобы SVG заполнял кадр без пустых полос.
+   max-height тут нельзя: вместе с aspect-ratio Chrome ужимает и ширину */
+.stage{position:relative;aspect-ratio:400/340;overflow:hidden}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.cap{
+  position:absolute;left:0;right:0;bottom:10px;text-align:center;padding:0 14px;
+  color:#fff;font-size:12px;font-weight:600;line-height:1.45;
+  text-shadow:0 2px 14px rgba(0,0,0,.85);
+}
+.ctrl{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#100c17}
+.play{
+  flex:0 0 42px;height:42px;border-radius:50%;border:0;cursor:pointer;
+  background:linear-gradient(140deg,#9b6bf0,#6d3fd6);color:#fff;
+  display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(139,92,246,.9);
+  transition:transform .3s var(--ease);
+}
+.play:active{transform:scale(.9)}
+.seek{flex:1;height:5px;border-radius:4px;background:#2a2137;cursor:pointer;position:relative}
+.seek i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#8b5cf6,#c4b5fd)}
+.seek .mk{position:absolute;top:-4px;width:2px;height:13px;background:rgba(255,255,255,.35)}
+.time{color:#9b93ab;font-size:11px;font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.chapters{display:flex;gap:8px;overflow-x:auto;padding:10px 14px 14px;background:#100c17}
+.chapters button{
+  border:1px solid #302543;background:#1a1424;color:#b7aec9;border-radius:9px;
+  padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.07em;
+  white-space:nowrap;cursor:pointer;transition:.3s;
+}
+.chapters button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+
+/* ---------- ТРЕНАЖЁР ---------- */
+.trainer{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:18px;margin-top:26px}
+.tr-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.tr-bar{height:6px;background:#eceaf2;border-radius:4px;margin:14px 0 18px;overflow:hidden}
+.tr-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,#6d3fd6,#c4b5fd);transition:width .5s var(--ease)}
+.stat{display:flex;gap:8px}
+.stat b{
+  background:#f3efff;color:var(--acc-deep);border-radius:9px;padding:6px 11px;
+  font-size:11px;font-weight:800;letter-spacing:.05em;
+}
+.q-type{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);font-weight:800}
+.q-text{font-size:17px;font-weight:600;line-height:1.5;margin:10px 0 6px;letter-spacing:-.01em}
+.q-hint{font-size:12.5px;color:var(--gray)}
+.slot{
+  display:inline-block;min-width:70px;border-bottom:2.5px solid var(--acc-3);
+  text-align:center;color:var(--acc-deep);font-weight:700;padding:0 6px;
+}
+.opts{display:grid;gap:9px;margin-top:16px}
+.opt{
+  text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;
+  padding:13px 15px;cursor:pointer;font-size:14px;font-weight:500;
+  transition:all .3s var(--ease);
+}
+.opt:hover:not(:disabled){border-color:var(--acc-3);transform:translateX(4px)}
+.opt:disabled{cursor:default}
+.opt.good{background:#eafaf0;border-color:var(--ok);color:#0f7a37;font-weight:700}
+.opt.bad{background:#fdecef;border-color:var(--err);color:#b3122f;animation:shake .45s}
+@keyframes shake{25%{transform:translateX(-7px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip-w{
+  background:var(--bg);border:1.5px solid var(--line);border-radius:11px;
+  padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;
+  transition:all .3s var(--ease);
+}
+.chip-w:hover{border-color:var(--acc);transform:translateY(-3px)}
+.chip-w.used{opacity:.25;pointer-events:none}
+.build{
+  min-height:52px;border:1.5px dashed var(--acc-3);border-radius:12px;
+  padding:12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;background:#faf8ff;
+}
+.build span{
+  background:#fff;border:1px solid var(--acc-3);border-radius:9px;padding:7px 11px;
+  font-size:14px;font-weight:600;cursor:pointer;animation:pop .35s var(--ease);
+}
+.build .ph{color:var(--gray);font-size:13px;border:0;background:none;cursor:default}
+.inp{
+  width:100%;padding:14px 15px;border:1.5px solid var(--line);border-radius:12px;
+  background:var(--bg);font-size:15px;font-weight:600;margin-top:14px;outline:none;
+  transition:.3s;
+}
+.inp:focus{border-color:var(--acc);background:#fff}
+.inp.good{border-color:var(--ok);background:#eafaf0}
+.inp.bad{border-color:var(--err);background:#fdecef;animation:shake .45s}
+.fb{
+  margin-top:14px;border-radius:12px;padding:13px 15px;font-size:13.5px;line-height:1.7;
+  display:none;animation:pop .45s var(--ease);
+}
+.fb.on{display:block}
+.fb.good{background:#eafaf0;border:1px solid #b7e6c9;color:#0f5c2c}
+.fb.bad{background:#fdecef;border:1px solid #f7c4ce;color:#8a0f27}
+.fb b{display:block;margin-bottom:4px;font-weight:800}
+.tr-btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.mini{
+  border:1.5px solid var(--line);background:var(--bg-2);border-radius:11px;
+  padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  cursor:pointer;transition:.3s var(--ease);
+}
+.mini:hover{border-color:var(--acc);color:var(--acc-deep)}
+.mini.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+.mini:disabled{opacity:.35;cursor:default}
+.result{text-align:center;padding:18px 6px;display:none}
+.result.on{display:block;animation:pop .6s var(--ease)}
+.result .big{font-size:clamp(46px,16vw,86px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.ring{margin:0 auto 12px;width:120px;height:120px}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .bgc{stroke:#eceaf2}
+.ring .fgc{stroke:url(#rg);transition:stroke-dashoffset 1.3s var(--ease)}
+
+/* ---------- ОЗВУЧКА ---------- */
+.say{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;flex:0 0 26px;margin-left:8px;vertical-align:middle;
+  padding:0;border:1.5px solid var(--acc-3);border-radius:8px;background:#faf7ff;
+  color:var(--acc-deep);cursor:pointer;transition:all .3s var(--ease);
+}
+.say:hover{background:var(--acc);color:#fff;border-color:var(--acc);transform:scale(1.1)}
+.say svg{width:13px;height:13px;fill:currentColor;pointer-events:none}
+.say.on{background:var(--acc);color:#fff;border-color:var(--acc);animation:ping 1.1s infinite}
+@keyframes ping{50%{box-shadow:0 0 0 7px rgba(139,92,246,.16)}}
+
+.tts{position:fixed;right:16px;bottom:16px;z-index:180;
+  display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.tts[hidden]{display:none}
+.tts-fab{
+  width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;
+  background:linear-gradient(140deg,#9b6bf0,#6d3fd6);color:#fff;
+  display:grid;place-items:center;
+  box-shadow:0 14px 32px -10px rgba(109,63,214,.85);
+  transition:transform .35s var(--ease);
+}
+.tts-fab:active{transform:scale(.92)}
+.tts-fab svg{width:22px;height:22px;fill:#fff}
+.tts-fab.on{animation:ping 1.1s infinite}
+.tts-panel{
+  display:none;width:252px;padding:16px;
+  background:var(--bg-2);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 30px 60px -34px rgba(60,20,120,.65);
+}
+.tts-panel.on{display:block;animation:pop .4s var(--ease)}
+.tts-row{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:12px;font-size:12px;font-weight:600}
+.tts-row select{
+  flex:1;min-width:0;border:1px solid var(--line);border-radius:9px;
+  padding:7px 8px;font-size:12px;background:var(--bg);color:var(--ink);
+}
+.tts-row input[type=range]{flex:1;min-width:0;accent-color:var(--acc)}
+.tts-row b{font-variant-numeric:tabular-nums;color:var(--acc-deep);min-width:34px;text-align:right}
+.tts-hint{font-size:11px;color:var(--gray);line-height:1.5;margin-top:10px}
+
+/* ---------- ФУТЕР ---------- */
+#end{
+  background:
+    radial-gradient(90% 70% at 15% 0%,#ffffff,rgba(255,255,255,0) 60%),
+    linear-gradient(180deg,#f5f4f8,#eae7f2);
+  border-top:4px solid var(--acc);
+}
+.links{display:grid;gap:10px;margin-top:22px}
+.link{
+  display:flex;align-items:center;gap:12px;background:var(--bg-2);
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);
+  transition:.4s var(--ease);
+}
+.link:hover{border-color:var(--acc-3);transform:translateY(-3px);box-shadow:0 20px 34px -26px rgba(80,40,160,.6)}
+.link i{
+  width:34px;height:34px;border-radius:50%;flex:0 0 34px;display:grid;place-items:center;
+  background:var(--acc);color:#fff;font-style:normal;font-size:12px;font-weight:800;
+}
+
+/* ---- широкий телефон: кадр перестаёт тянуться в высоту ---- */
+@media (min-width:560px){
+  .stage{aspect-ratio:auto;height:360px}
+}
+
+/* ============================================================
+   TABLET  ≥ 768px
+   ============================================================ */
+@media (min-width:768px){
+  :root{--pad:34px}
+  body{font-size:16px}
+  .topbar{padding-top:26px;font-size:10px}
+  .topbar span:nth-child(2){display:block}
+  .sect{padding:88px 0}
+  .duo{grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+  .lead{font-size:16px}
+  .scene{height:340px}
+  .tape-big{width:250px}.box{width:280px}.tape-small{width:130px;left:150px}
+  .grid2{grid-template-columns:1fr 1fr}
+  .stage{height:360px}
+  .links{grid-template-columns:1fr 1fr}
+  .trainer{padding:28px}
+  .opts{grid-template-columns:1fr 1fr}
+  .stage{aspect-ratio:auto;height:360px}
+  .cap{font-size:13px;line-height:1.5;bottom:14px;padding:0 16px}
+  .formula{white-space:nowrap;font-size:13px}
+  .steps{flex-direction:row;gap:0}
+  .step{flex-direction:column;flex:1;padding:0 10px 0 0;gap:12px}
+  .step .track{left:46px;top:22.5px;bottom:auto;right:0;width:auto;height:3px}
+  .step .track i{height:100%;width:0}
+  .step.on .track i{width:100%;height:100%}
+  .step .body{width:100%}
+  .step.on .exp{max-height:260px}
+}
+
+/* ============================================================
+   DESKTOP  ≥ 1200px
+   ============================================================ */
+@media (min-width:1200px){
+  :root{--pad:48px}
+  .sect{padding:118px 0}
+  .duo{grid-template-columns:.9fr 1.1fr;gap:80px}
+  .hero-inner{padding-top:40px}
+  /* объекты позиционируются относительно #hero, а не нулевой .scene */
+  #hero{min-height:96vh;display:flex;flex-direction:column;justify-content:center;padding-bottom:0}
+  .hero-inner{position:static;width:100%}
+  .hero-title,.hero-sub,.hero-cta{position:relative;z-index:3}
+  .h-giant{font-size:min(7.6vw,116px,calc((min(100vw,1360px) - 100px) / 7))}
+  /* perspective создаёт containing block — снимаем, иначе .obj цепляются за .scene */
+  .scene{position:static;height:0;margin:0;perspective:none}
+  .obj{position:absolute;z-index:2}
+  .obj.tape-big{top:4%;right:3%;left:auto;bottom:auto;width:330px;z-index:4}
+  .obj.box{bottom:5%;right:2%;left:auto;top:auto;width:340px}
+  .obj.tape-small{bottom:6%;right:27%;left:auto;top:auto;width:150px;z-index:3}
+  .hero-sub{max-width:600px}
+  .badges{position:absolute;top:47%;right:4%;bottom:auto;z-index:5}
+  .badge{width:76px;height:76px;font-size:16px;margin-left:-20px}
+  .b2{font-size:15px}
+  .stage{height:420px}
+  #dots{
+    display:flex;flex-direction:column;gap:12px;
+    position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:150;
+  }
+  #dots a{
+    width:9px;height:9px;border-radius:50%;background:#d3d0dc;
+    transition:.4s var(--ease);position:relative;
+  }
+  #dots a.on{background:var(--acc);transform:scale(1.5);box-shadow:0 0 0 5px rgba(139,92,246,.18)}
+  #dots a::after{
+    content:attr(data-t);position:absolute;right:20px;top:50%;transform:translateY(-50%) translateX(8px);
+    background:var(--ink);color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;padding:6px 10px;border-radius:7px;white-space:nowrap;
+    opacity:0;pointer-events:none;transition:.35s var(--ease);
+  }
+  #dots a:hover::after{opacity:1;transform:translateY(-50%)}
+  .opts{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .rv{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="kicker">English grammar</div>
-  <h1>Разборы<br>по временам</h1>
-  <p class="lead">Каждая тема — отдельная страница: объяснение, пошаговая диаграмма, видеоразбор и интерактивный тренажёр.</p>
 
-  <ul>
-    <li>
-      <a class="card" href="present-perfect-continuous.html">
-        <i>01</i>
-        <span>
-          <b>Present Perfect Continuous</b>
-          <span>Формула, маркеры, stative verbs, 12 заданий</span>
-        </span>
-      </a>
-    </li>
-  </ul>
+<div id="progress"><i></i></div>
+<div id="pct">0%</div>
 
-  <footer>Montserrat · #8B5CF6 · GitHub Pages</footer>
+<nav id="dots">
+  <a href="#hero" data-t="Старт" class="on"></a>
+  <a href="#s1" data-t="01 Что это"></a>
+  <a href="#s2" data-t="02 Формула"></a>
+  <a href="#s3" data-t="03 Три типа"></a>
+  <a href="#s4" data-t="04 Спутники"></a>
+  <a href="#s5" data-t="05 Stative"></a>
+  <a href="#s6" data-t="06 Сравнение"></a>
+  <a href="#s7" data-t="07 Видео"></a>
+  <a href="#s8" data-t="08 Тренажёр"></a>
+  <a href="#end" data-t="Финал"></a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="hero-noise"></div>
+  <div class="topbar">
+    <span>AUGUST 2026</span>
+    <span>GRAMMAR LANDING</span>
+    <span>ENGLISH&nbsp;TENSES</span>
+  </div>
+
+  <div class="wrap hero-inner">
+    <h1 class="hero-title h-giant">
+      <span class="ln"><span>PRESENT</span></span>
+      <span class="ln"><span>PERFECT</span></span>
+      <span class="ln"><span>CONTINUOUS</span></span>
+    </h1>
+
+    <p class="hero-sub lead">
+      Время, которое началось в прошлом и до сих пор, блять, не закончилось.
+      Как ремонт. Разбираем формулу, маркеры, ловушки — и сразу закрепляем
+      на тренажёре.
+    </p>
+
+    <div class="hero-cta">
+      <button class="btn" data-go="#s2">РАЗОБРАТЬ ФОРМУЛУ</button>
+      <button class="btn ghost" data-go="#s8">СРАЗУ К ТРЕНАЖЁРУ</button>
+    </div>
+
+    <div class="scene">
+      <!-- КАТУШКА СКОТЧА -->
+      <svg class="obj tape-big" viewBox="0 0 300 300" fill="none">
+        <defs>
+          <linearGradient id="tp1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#c4b5fd"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d3fd6"/>
+          </linearGradient>
+          <linearGradient id="tp2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#5b2fc0"/>
+          </linearGradient>
+          <linearGradient id="crd" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8cfa8"/><stop offset="1" stop-color="#c49f6a"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="150" cy="112" rx="96" ry="86" fill="url(#tp1)"/>
+        <ellipse cx="150" cy="104" rx="96" ry="86" fill="url(#tp2)"/>
+        <ellipse cx="150" cy="104" rx="52" ry="46" fill="url(#crd)"/>
+        <ellipse cx="150" cy="100" rx="52" ry="46" fill="#f0dcbc"/>
+        <ellipse cx="150" cy="100" rx="44" ry="39" fill="#d9bd93"/>
+        <path d="M243 128 C255 190 240 240 205 285 L152 270 C196 226 213 182 210 132 Z" fill="url(#tp1)"/>
+        <path d="M243 128 C250 160 246 186 236 210 L188 198 C202 176 210 154 210 132 Z" fill="#ffffff" opacity=".14"/>
+        <ellipse cx="150" cy="104" rx="96" ry="86" fill="none" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+      </svg>
+
+      <!-- КОРОБКА -->
+      <svg class="obj box" viewBox="0 0 340 280" fill="none">
+        <defs>
+          <linearGradient id="bx1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#d9ad74"/><stop offset="1" stop-color="#b8894f"/>
+          </linearGradient>
+        </defs>
+        <path d="M20 70 L300 70 L300 250 L20 250 Z" fill="url(#bx1)"/>
+        <path d="M20 70 L60 34 L340 34 L300 70 Z" fill="#e5c093"/>
+        <path d="M300 70 L340 34 L340 214 L300 250 Z" fill="#9c703c"/>
+        <rect x="150" y="70" width="34" height="180" fill="#8b5cf6" opacity=".9"/>
+        <path d="M150 70 L184 70 L224 34 L190 34 Z" fill="#a78bfa"/>
+        <text x="42" y="176" font-family="Montserrat,Arial" font-weight="800" font-size="40" fill="#8b5cf6" opacity=".55">ENG</text>
+        <text x="196" y="176" font-family="Montserrat,Arial" font-weight="800" font-size="28" fill="#7a5a2e" opacity=".35">V-ing</text>
+      </svg>
+
+      <!-- МАЛЕНЬКАЯ КАТУШКА -->
+      <svg class="obj tape-small" viewBox="0 0 200 200" fill="none">
+        <ellipse cx="100" cy="106" rx="76" ry="72" fill="#6d3fd6"/>
+        <ellipse cx="100" cy="100" rx="76" ry="72" fill="url(#tp1)"/>
+        <ellipse cx="100" cy="100" rx="40" ry="37" fill="#eef0f3"/>
+        <ellipse cx="100" cy="100" rx="30" ry="28" fill="#cfd4da"/>
+      </svg>
+
+      <div class="badges">
+        <div class="badge b1">HAVE</div>
+        <div class="badge b2">BEEN</div>
+        <div class="badge b3">ING</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 01 ЧТО ЭТО ================= -->
+<section id="s1" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ЧТО ЭТО<br>ВООБЩЕ<br>ТАКОЕ</h2>
+        <div class="num rv d1">01 — Старт разбора</div>
+      </div>
+      <div class="side">
+        <div class="dan rv d1">
+          <p>У меня был ремонт. Ремонт был в квартире. Квартира была маленькая.</p>
+          <p>Начал я его в марте. Закончил я его... <b>Стоп.</b></p>
+          <p>Ремонт нельзя закончить. Ремонт можно только приостановить. Он начался в прошлом. Он идёт сейчас. И конца ему не видно.</p>
+          <p class="say">Вот это и есть <b>Present Perfect Continuous</b>. Действие стартовало тогда. Тянется до сих пор. И тебе важно, <b>сколько оно уже тянется</b>.</p>
+        </div>
+        <div class="card rv d2 tilt">
+          <div class="kicker">Одно предложение — вся суть</div>
+          <p class="q-text" style="margin-top:8px">I <u style="color:var(--acc-deep);text-decoration:none;border-bottom:2px solid var(--acc-3)">have been doing</u> this renovation <b>for five months</b>.</p>
+          <p class="muted" style="font-size:13.5px">Я делаю этот ремонт уже пять месяцев. Начал тогда — и до сих пор в процессе.</p>
+        </div>
+        <div class="card rv d3">
+          <div class="kicker">Три условия, при которых включается это время</div>
+          <ul class="ex" style="margin-top:12px">
+            <li><span class="en">1. Действие началось в прошлом</span><span class="ru">не «сейчас», а «с какого-то момента»</span></li>
+            <li><span class="en">2. Оно длится и сейчас (или только что оборвалось)</span><span class="ru">процесс, а не факт</span></li>
+            <li><span class="en">3. Важна длительность</span><span class="ru">for two hours, since 1993, all morning</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-row rv">
+      <span>01 — Что это такое</span>
+      <span>Дальше — формула</span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 02 ФОРМУЛА / ДИАГРАММА ================= -->
+<section id="s2" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ФОРМУЛА<br>ПО ШАГАМ</h2>
+        <div class="num rv d1">02 — Многоступенчатая диаграмма</div>
+      </div>
+      <div class="side">
+        <p class="lead rv d1">
+          Тыкай в ступени по очереди. Каждая ступень — один кубик формулы.
+          Диаграмма собрана mobile-first: на телефоне это вертикальная лестница,
+          на десктопе она разворачивается в горизонтальную ленту.
+        </p>
+        <div class="tr-btns rv d2">
+          <button class="mini solid" id="stepAuto">СОБРАТЬ АВТОМАТОМ</button>
+          <button class="mini" id="stepReset">СБРОСИТЬ</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stepper rv d2">
+      <div class="steps" id="steps">
+        <div class="step" data-i="0">
+          <div class="bul">01</div><div class="track"><i></i></div>
+          <div class="body">
+            <div class="t">Подлежащее</div>
+            <div class="chip">She</div>
+            <div class="exp">Кто делает. От лица зависит только выбор have/has — больше ничего.</div>
+          </div>
+        </div>
+        <div class="step" data-i="1">
+          <div class="bul">02</div><div class="track"><i></i></div>
+          <div class="body">
+            <div class="t">have / has</div>
+            <div class="chip">has</div>
+            <div class="exp">I, you, we, they → <b>have</b>. He, she, it → <b>has</b>. Это кусок Perfect: связь с настоящим.</div>
+          </div>
+        </div>
+        <div class="step" data-i="2">
+          <div class="bul">03</div><div class="track"><i></i></div>
+          <div class="body">
+            <div class="t">been</div>
+            <div class="chip">been</div>
+            <div class="exp">Не меняется никогда. Вообще. Это цемент между Perfect и Continuous.</div>
+          </div>
+        </div>
+        <div class="step" data-i="3">
+          <div class="bul">04</div><div class="track"><i></i></div>
+          <div class="body">
+            <div class="t">Глагол + ing</div>
+            <div class="chip">working</div>
+            <div class="exp">Смысловой глагол. Окончание -ing = длительность, процесс, «оно ещё идёт».</div>
+          </div>
+        </div>
+        <div class="step" data-i="4">
+          <div class="bul">05</div><div class="track"><i></i></div>
+          <div class="body">
+            <div class="t">Маркер длительности</div>
+            <div class="chip">for 3 years</div>
+            <div class="exp">Формально необязателен, по-человечески — почти всегда нужен. for / since / all day / lately.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="assembled">
+        <div class="out" id="asm">
+          <span>She</span><span class="hl">has</span><span class="hl">been</span><span class="hl">working</span><span>here</span><span>for 3 years.</span>
+        </div>
+        <div class="tr" id="asmTr">Нажми на ступени — предложение соберётся</div>
+      </div>
+    </div>
+
+    <div class="foot-row rv">
+      <span>02 — Формула</span>
+      <span>Subject + have/has + been + V-ing</span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 03 ТРИ ТИПА ================= -->
+<section id="s3" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ТРИ ТИПА<br>ПРЕДЛОЖЕНИЙ</h2>
+        <div class="num rv d1">03 — Утверждение / отрицание / вопрос</div>
+      </div>
+      <div class="side">
+        <div class="dan rv d1">
+          <p>Говорю студенту, скажи отрицание.</p>
+          <p>Он говорит, She has been not working.</p>
+          <p>Говорю, ебать. Не туда воткнул. <b>not</b> лезет сразу после have/has. Не после been. Никогда после been.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv d2" style="margin-top:26px">
+      <div class="tabs" id="tabs">
+        <button class="tab on" data-p="p1">Утверждение</button>
+        <button class="tab" data-p="p2">Отрицание</button>
+        <button class="tab" data-p="p3">Вопрос</button>
+        <button class="tab" data-p="p4">Wh-вопрос</button>
+      </div>
+
+      <div class="pane on" id="p1">
+        <div class="formula">I / You / We / They + <b>have been</b> + V-<b>ing</b><br>He / She / It &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <b>has been</b> &nbsp;+ V-<b>ing</b></div>
+        <ul class="ex">
+          <li><div class="en">She <u>has been living</u> in New York since 1993.</div><div class="ru">Она живёт в Нью-Йорке с 1993 года.</div></li>
+          <li><div class="en">George <u>has been teaching</u> in this school for three years.</div><div class="ru">Джордж преподаёт в этой школе три года.</div></li>
+          <li><div class="en">We <u>have been watching</u> too much TV lately.</div><div class="ru">В последнее время мы смотрим слишком много телевизора.</div></li>
+        </ul>
+      </div>
+
+      <div class="pane" id="p2">
+        <div class="formula">I / You / We / They + <b>have not been</b> (haven't been) + V-<b>ing</b><br>He / She / It &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <b>has not been</b> &nbsp;(hasn't been) &nbsp;+ V-<b>ing</b></div>
+        <ul class="ex">
+          <li><div class="en">Tara <u>has not been feeling</u> well for two weeks.</div><div class="ru">Тара плохо себя чувствует уже две недели.</div></li>
+          <li><div class="en">My grandma <u>hasn't been visiting</u> us since March.</div><div class="ru">Бабушка не навещает нас с марта.</div></li>
+          <li><div class="en">You <u>have not been attending</u> your lectures since last month.</div><div class="ru">Ты не ходишь на лекции с прошлого месяца.</div></li>
+        </ul>
+      </div>
+
+      <div class="pane" id="p3">
+        <div class="formula"><b>Have / Has</b> + подлежащее + <b>been</b> + V-<b>ing</b> ?</div>
+        <ul class="ex">
+          <li><div class="en"><u>Has</u> it <u>been raining</u>?</div><div class="ru">На улице шёл дождь?</div></li>
+          <li><div class="en"><u>Have</u> you <u>been trying</u> to call her?</div><div class="ru">Ты пытаешься ей дозвониться?</div></li>
+        </ul>
+        <div class="card" style="margin-top:14px">
+          <div class="kicker">Механика</div>
+          <p class="lead" style="font-size:14px;margin-top:6px">Вспомогательный have/has просто прыгает на первое место. Been и -ing остаются на своих местах и не шевелятся.</p>
+        </div>
+      </div>
+
+      <div class="pane" id="p4">
+        <div class="formula">Wh-слово + <b>have/has</b> + подлежащее + <b>been</b> + V-<b>ing</b> ?</div>
+        <ul class="ex">
+          <li><div class="en">How long <u>have</u> you <u>been staying</u> in Moscow?</div><div class="ru">Как долго ты уже в Москве?</div></li>
+          <li><div class="en">Why <u>have</u> you <u>been</u> so busy recently?</div><div class="ru">Почему ты так занят в последнее время?</div></li>
+          <li><div class="en">What <u>have</u> you <u>been doing</u> recently?</div><div class="ru">Чем ты занимался в последнее время?</div></li>
+        </ul>
+        <div class="card" style="margin-top:14px">
+          <div class="kicker">Главный вопрос этого времени</div>
+          <p class="q-text" style="margin-top:6px">How long...?</p>
+          <p class="muted" style="font-size:13.5px">Если в голове звучит «как долго» — почти всегда Present Perfect Continuous.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-row rv"><span>03 — Три типа</span><span>not идёт после have/has</span></div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 04 МАРКЕРЫ ================= -->
+<section id="s4" class="sect" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">СЛОВА-<br>СПУТНИКИ</h2>
+        <div class="num rv d1">04 — Маркеры времени</div>
+      </div>
+      <div class="side">
+        <p class="lead rv d1">
+          Это флажки. Увидел флажок — почти наверняка перед тобой Present Perfect Continuous.
+          <b>for</b> — сколько длится. <b>since</b> — с какого момента началось. Это не синонимы,
+          путать их — классика.
+        </p>
+        <div class="grid2 rv d2" style="margin-top:16px">
+          <div class="card"><div class="kicker">FOR</div><p class="q-text" style="margin-top:6px;font-size:15px">for two hours</p><p class="muted" style="font-size:13px">отрезок: два часа, три года, ages</p></div>
+          <div class="card"><div class="kicker">SINCE</div><p class="q-text" style="margin-top:6px;font-size:15px">since 1993</p><p class="muted" style="font-size:13px">точка старта: с 1993, с утра, с марта</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="marq rv" style="margin-top:40px">
+    <div class="marq-in">
+      <span class="word b">for</span><span class="word">since</span><span class="word">all morning</span>
+      <span class="word b">lately</span><span class="word">recently</span><span class="word">for quite a while</span>
+      <span class="word b">how long</span><span class="word">all day</span><span class="word">these days</span>
+      <span class="word b">for</span><span class="word">since</span><span class="word">all morning</span>
+      <span class="word b">lately</span><span class="word">recently</span><span class="word">for quite a while</span>
+      <span class="word b">how long</span><span class="word">all day</span><span class="word">these days</span>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:26px;padding-bottom:64px">
+    <ul class="ex rv">
+      <li><div class="en">You <u>have been waiting</u> here <b>for two hours</b>.</div><div class="ru">Ты ждёшь здесь уже два часа.</div></li>
+      <li><div class="en">The boy <u>has recently been misbehaving</u>.</div><div class="ru">Мальчик в последние дни плохо себя ведёт.</div></li>
+      <li><div class="en"><b>Since early morning</b> I <u>have been writing</u> this essay.</div><div class="ru">Я пишу это эссе с раннего утра.</div></li>
+    </ul>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 05 STATIVE ================= -->
+<section id="s5" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ГЛАГОЛЫ,<br>КОТОРЫЕ<br>НЕ ЛЕЗУТ</h2>
+        <div class="num rv d1">05 — Stative verbs</div>
+      </div>
+      <div class="side">
+        <div class="dan rv d1">
+          <p>Есть глаголы, которые в этом времени не работают. Вообще.</p>
+          <p>Они описывают не действие, а состояние. Состояние не длится — оно просто есть.</p>
+          <p>Нельзя сказать <b>I have been knowing him</b>. Можно только <b>I have known him</b>. Всё.</p>
+        </div>
+        <div class="grid2 rv d2">
+          <div class="card"><div class="kicker">Чувства</div><p class="lead" style="font-size:14px;margin-top:6px">love, hate, adore, enjoy, need, want</p></div>
+          <div class="card"><div class="kicker">Мышление</div><p class="lead" style="font-size:14px;margin-top:6px">know, believe, remember, forget, realise, recognise</p></div>
+          <div class="card"><div class="kicker">Обладание</div><p class="lead" style="font-size:14px;margin-top:6px">own, owe, have (иметь), contain, include, belong</p></div>
+          <div class="card"><div class="kicker">Восприятие</div><p class="lead" style="font-size:14px;margin-top:6px">seem, appear, cost, weigh, sound, fit</p></div>
+        </div>
+        <div class="card rv d3" style="margin-top:14px;border-color:var(--acc-3)">
+          <div class="kicker">Но есть люк</div>
+          <p class="lead" style="font-size:14px;margin-top:8px">Часть таких глаголов может переехать в динамику — если речь про конкретный процесс, а не про вечную истину.</p>
+          <ul class="ex" style="margin-top:12px">
+            <li><div class="en">I <b>enjoy</b> books.</div><div class="ru">Мне нравятся книги вообще. Состояние.</div></li>
+            <li><div class="en">I <u>am enjoying</u> this book.</div><div class="ru">Я наслаждаюсь вот этой книгой прямо сейчас. Процесс.</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-row rv"><span>05 — Stative verbs</span><span>know, love, need — мимо</span></div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 06 СРАВНЕНИЕ ================= -->
+<section id="s6" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ПРОТИВ<br>ВСЕХ<br>ОСТАЛЬНЫХ</h2>
+        <div class="num rv d1">06 — Сравнение времён</div>
+      </div>
+      <div class="side">
+        <p class="lead rv d1">
+          Три пары, на которых сыпятся все. Разница в одном: <b>процесс</b> или <b>результат</b>,
+          <b>сколько длится</b> или <b>что получилось</b>.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:28px">
+      <div class="card vs rv d1 tilt">
+        <div class="top"><span class="tag">Present Perfect Continuous</span><span class="num">процесс</span></div>
+        <p><b>She has been working</b> away in the kitchen all day.<br><span class="muted">Она трудится на кухне целый день. Важно — сколько.</span></p>
+        <div class="q">Вопрос времени: <b>How long?</b></div>
+      </div>
+      <div class="card vs rv d2 tilt">
+        <div class="top"><span class="tag dark">Present Perfect</span><span class="num">результат</span></div>
+        <p><b>They have finished</b> their work for today.<br><span class="muted">Они закончили работу. Важно — что готово.</span></p>
+        <div class="q">Вопрос времени: <b>What's done?</b></div>
+      </div>
+      <div class="card vs rv d3 tilt">
+        <div class="top"><span class="tag">Present Perfect Continuous</span><span class="num">из прошлого в сейчас</span></div>
+        <p><b>They have been enjoying</b> their time together since morning.<br><span class="muted">Они вместе с утра — и до сих пор.</span></p>
+        <div class="q">Есть точка старта в прошлом</div>
+      </div>
+      <div class="card vs rv d4 tilt">
+        <div class="top"><span class="tag dark">Present Continuous</span><span class="num">прямо сейчас</span></div>
+        <p><b>We are enjoying</b> our time together.<br><span class="muted">Наслаждаемся вот в эту секунду.</span></p>
+        <div class="q">Точки старта нет, есть только «сейчас»</div>
+      </div>
+      <div class="card vs rv d5 tilt">
+        <div class="top"><span class="tag">Present Perfect Continuous</span><span class="num">дотянулось до сейчас</span></div>
+        <p><b>He has been travelling</b> around the world for a month.<br><span class="muted">Месяц путешествует и всё ещё в пути.</span></p>
+        <div class="q">Связь с настоящим есть</div>
+      </div>
+      <div class="card vs rv d6 tilt">
+        <div class="top"><span class="tag dark">Past Continuous</span><span class="num">закрытое прошлое</span></div>
+        <p><b>The sun was shining</b> every day that summer.<br><span class="muted">То лето кончилось. Настоящего тут нет.</span></p>
+        <div class="q">Связь с настоящим оборвана</div>
+      </div>
+    </div>
+
+    <div class="card rv" style="margin-top:22px;background:#faf8ff;border-color:var(--acc-3)">
+      <div class="kicker">Перевод на русский — две дороги</div>
+      <div class="grid2" style="margin-top:12px">
+        <div>
+          <p class="q-text" style="font-size:15px">Действие ещё идёт → настоящее время</p>
+          <p class="muted" style="font-size:13.5px">She has been studying math since 6 a.m. — Она <b>учит</b> математику с 6 утра.</p>
+        </div>
+        <div>
+          <p class="q-text" style="font-size:15px">Действие уже оборвалось → прошедшее</p>
+          <p class="muted" style="font-size:13.5px">I have been so lazy today. — Я сегодня <b>был</b> таким ленивым.</p>
+        </div>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:12px">В обоих случаях глагол несовершенного вида: «учит», «был», а не «выучила», «побыл».</p>
+    </div>
+
+    <div class="foot-row rv"><span>06 — Сравнение</span><span>Процесс против результата</span></div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 07 ВИДЕО ================= -->
+<section id="s7" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ВИДЕО-<br>РАЗБОР</h2>
+        <div class="num rv d1">07 — Шесть сцен на таймлайне</div>
+      </div>
+      <div class="side">
+        <p class="lead rv d1">
+          Собственный анимированный ролик: шесть сцен, субтитры, перемотка по главам.
+          Ничего не грузится извне — работает даже без интернета. После ролика — три
+          вопроса по нему, ответы раскрываются по кнопке.
+        </p>
+      </div>
+    </div>
+
+    <div class="player rv d2" style="margin-top:26px">
+      <div class="stage">
+        <svg id="vsvg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="vg1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#c4b5fd"/>
+            </linearGradient>
+            <radialGradient id="glow"><stop offset="0" stop-color="#8b5cf6" stop-opacity=".55"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+            <linearGradient id="rg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6d3fd6"/><stop offset="1" stop-color="#c4b5fd"/>
+            </linearGradient>
+          </defs>
+          <circle id="vGlow" cx="400" cy="200" r="260" fill="url(#glow)" opacity=".35"/>
+          <!-- линия времени (координаты выставляет layoutStage) -->
+          <g id="vLine" opacity="0">
+            <line id="vAxis" stroke="#4a3a63" stroke-width="3"/>
+            <line id="vFill" stroke="url(#vg1)" stroke-width="5" stroke-linecap="round"/>
+            <line id="vNowTick" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle id="vDot" r="9" fill="#c4b5fd"/>
+            <text id="vLabPast" fill="#8c81a3" font-family="Montserrat,Arial" font-weight="600" text-anchor="middle">ПРОШЛОЕ</text>
+            <text id="vLabNow" fill="#8c81a3" font-family="Montserrat,Arial" font-weight="600" text-anchor="middle">СЕЙЧАС</text>
+            <text id="vLabQ" fill="#5d5375" font-family="Montserrat,Arial" font-weight="600" text-anchor="middle">?</text>
+          </g>
+          <!-- заголовок сцены -->
+          <text id="vTitle" fill="#ffffff" font-weight="800" font-family="Montserrat,Arial" text-anchor="middle" opacity="0"></text>
+          <text id="vSub" fill="#b9aed3" font-weight="500" font-family="Montserrat,Arial" text-anchor="middle" opacity="0"></text>
+          <!-- кубики формулы -->
+          <g id="vBricks" opacity="0"></g>
+        </svg>
+        <div class="cap" id="vCap"></div>
+      </div>
+      <div class="ctrl">
+        <button class="play" id="vPlay" aria-label="play">
+          <svg width="15" height="16" viewBox="0 0 15 16" fill="#fff" id="vIcon"><path d="M2 1l11 7-11 7z"/></svg>
+        </button>
+        <div class="seek" id="vSeek"><i></i></div>
+        <div class="time" id="vTime">0:00</div>
+      </div>
+      <div class="chapters" id="vChapters"></div>
+    </div>
+
+    <div class="grid2 rv" style="margin-top:22px">
+      <div class="card">
+        <div class="kicker">Вопрос 1 к ролику</div>
+        <p class="q-text" style="font-size:16px">Почему в формуле обязателен <b>been</b>, если есть have и -ing?</p>
+        <button class="mini" data-ans="a1" style="margin-top:10px">ПОКАЗАТЬ ОТВЕТ</button>
+        <p class="lead" id="a1" style="display:none;font-size:14px;margin-top:10px">Потому что have отвечает за перфект (связь с настоящим), а -ing — за длительность. <b>been</b> — это форма причастия от to be, которая физически склеивает две конструкции: have + been (Perfect) и be + V-ing (Continuous). Без неё связки нет.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Вопрос 2 к ролику</div>
+        <p class="q-text" style="font-size:16px">В чём разница: <b>I have read</b> the book / <b>I have been reading</b> the book?</p>
+        <button class="mini" data-ans="a2" style="margin-top:10px">ПОКАЗАТЬ ОТВЕТ</button>
+        <p class="lead" id="a2" style="display:none;font-size:14px;margin-top:10px">Первое — книга прочитана, есть результат. Второе — я её читаю уже какое-то время, дочитал или нет — неизвестно, и это неважно. Важен процесс и его длительность.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Вопрос 3 к ролику</div>
+        <p class="q-text" style="font-size:16px">Где ошибка: <em>Why has you been calling me?</em></p>
+        <button class="mini" data-ans="a3" style="margin-top:10px">ПОКАЗАТЬ ОТВЕТ</button>
+        <p class="lead" id="a3" style="display:none;font-size:14px;margin-top:10px">С <b>you</b> идёт <b>have</b>, а не has. Правильно: <b>Why have you been calling me?</b> — Почему ты мне всё время звонишь?</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Вопрос 4 к ролику</div>
+        <p class="q-text" style="font-size:16px">Можно ли сказать <em>I have been knowing her for years</em>?</p>
+        <button class="mini" data-ans="a4" style="margin-top:10px">ПОКАЗАТЬ ОТВЕТ</button>
+        <p class="lead" id="a4" style="display:none;font-size:14px;margin-top:10px">Нет. <b>know</b> — глагол состояния, в Continuous не ставится. Правильно: <b>I have known her for years.</b></p>
+      </div>
+    </div>
+
+    <div class="foot-row rv"><span>07 — Видеоразбор</span><span>6 сцен · 4 вопроса</span></div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 08 ТРЕНАЖЁР ================= -->
+<section id="s8" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">ТРЕНАЖЁР</h2>
+        <div class="num rv d1">08 — 12 заданий, три типа</div>
+      </div>
+      <div class="side">
+        <div class="dan rv d1">
+          <p>Теория — это хорошо. Теория греет.</p>
+          <p>Но пока ты сам не собрал предложение руками — ты ничего не выучил.</p>
+          <p>Двенадцать заданий. Три типа. Ошибся — тебе объяснят, почему. Погнали.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trainer rv d2">
+      <div class="tr-head">
+        <div>
+          <div class="q-type" id="qType">ЗАГРУЗКА</div>
+          <div class="num" id="qCount">Вопрос 1 из 12</div>
+        </div>
+        <div class="stat">
+          <b id="sScore">0 / 12</b>
+          <b id="sStreak">СЕРИЯ 0</b>
+        </div>
+      </div>
+      <div class="tr-bar"><i id="trBar"></i></div>
+
+      <div id="qBox">
+        <div class="q-text" id="qText"></div>
+        <div class="q-hint" id="qHint"></div>
+        <div id="qArea"></div>
+        <div class="fb" id="qFb"></div>
+        <div class="tr-btns">
+          <button class="mini solid" id="btnCheck">ПРОВЕРИТЬ</button>
+          <button class="mini" id="btnSkip">НЕ ЗНАЮ, ПОКАЖИ</button>
+          <button class="mini" id="btnNext" disabled>ДАЛЬШЕ →</button>
+        </div>
+      </div>
+
+      <div class="result" id="qResult">
+        <svg class="ring" viewBox="0 0 120 120">
+          <circle class="bgc" cx="60" cy="60" r="50"/>
+          <circle class="fgc" cx="60" cy="60" r="50" id="ringFg"
+            stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="big grad" id="rScore">0</div>
+        <p class="lead" id="rText" style="margin-top:8px"></p>
+        <div class="tr-btns" style="justify-content:center">
+          <button class="mini solid" id="btnAgain">ПРОЙТИ ЗАНОВО</button>
+          <button class="mini" id="btnSheet">СКАЧАТЬ ШПАРГАЛКУ</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot-row rv"><span>08 — Тренажёр</span><span>Сборка · пропуск · выбор времени</span></div>
+  </div>
+</section>
+
+<!-- ================= ФИНАЛ ================= -->
+<section id="end" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
+        <h2 class="h1 grad rv">РАЗОБРАЛСЯ?</h2>
+        <p class="lead rv d1" style="margin-top:14px">
+          Present Perfect Continuous — это ремонт. Начался тогда, идёт сейчас,
+          и главный вопрос к нему — <b>как долго</b>.
+        </p>
+        <div class="dan rv d2">
+          <p>Формулу я, кстати, так и не забыл.</p>
+        </div>
+      </div>
+      <div class="side">
+        <div class="kicker rv d1">Что дальше</div>
+        <div class="links rv d2">
+          <a class="link" href="#s2"><i>02</i> Пересобрать формулу по ступеням</a>
+          <a class="link" href="#s7"><i>07</i> Пересмотреть видеоразбор</a>
+          <a class="link" href="#s8"><i>08</i> Пройти тренажёр ещё раз</a>
+          <a class="link" href="#hero"><i>↑</i> Вернуться в начало</a>
+        </div>
+        <div class="foot-row rv d3">
+          <span>Grammar Landing · 2026</span>
+          <span>Montserrat · #8B5CF6</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ПАНЕЛЬ ОЗВУЧКИ ================= -->
+<div class="tts" id="tts" hidden>
+  <div class="tts-panel" id="ttsPanel">
+    <div class="tts-row"><span>Голос</span><select id="ttsVoice"></select></div>
+    <div class="tts-row"><span>Темп</span><input id="ttsRate" type="range" min="0.6" max="1.3" step="0.1" value="0.9"><b id="ttsRateV">0,9×</b></div>
+    <button class="mini solid" id="ttsStop" style="width:100%">ОСТАНОВИТЬ</button>
+    <p class="tts-hint">Нажимай на динамик рядом с английскими примерами — фраза прозвучит вслух. Медленный темп удобен, чтобы повторять за диктором.</p>
+  </div>
+  <button class="tts-fab" id="ttsFab" aria-label="Настройки озвучки" title="Озвучка">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a6.8 6.8 0 0 1 0 13.4v2.1a8.9 8.9 0 0 0 0-17.6z"/></svg>
+  </button>
 </div>
+
+<script>
+(function(){
+'use strict';
+
+/* ============ ПРОГРЕСС-БАР ============ */
+var pbar=document.querySelector('#progress i'), pct=document.getElementById('pct');
+function onScroll(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  var p=h>0?Math.min(100,Math.max(0,window.scrollY/h*100)):0;
+  pbar.style.width=p.toFixed(2)+'%';
+  pct.textContent=Math.round(p)+'%';
+  pct.classList.toggle('on',p>1);
+  syncDots();
+  parallax();
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll);
+
+/* ============ ТОЧКИ НАВИГАЦИИ ============ */
+var dots=[].slice.call(document.querySelectorAll('#dots a'));
+var secs=dots.map(function(a){return document.querySelector(a.getAttribute('href'));});
+function syncDots(){
+  var y=window.scrollY+window.innerHeight*0.35, idx=0;
+  secs.forEach(function(s,i){ if(s && s.offsetTop<=y) idx=i; });
+  dots.forEach(function(a,i){ a.classList.toggle('on',i===idx); });
+}
+
+/* ============ ПЛАВНЫЙ СКРОЛЛ КНОПОК ============ */
+document.querySelectorAll('[data-go]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=document.querySelector(b.dataset.go);
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* ============ REVEAL ============ */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+/* ============ ПАРАЛЛАКС ГЕРОЯ ============ */
+var objs=[].slice.call(document.querySelectorAll('#hero .obj'));
+var speeds=[.16,-.10,.24];
+function parallax(){
+  if(window.innerWidth<1200) return;
+  var y=window.scrollY;
+  if(y>window.innerHeight*1.2) return;
+  objs.forEach(function(o,i){
+    o.style.transform='translate3d(0,'+(y*speeds[i]).toFixed(1)+'px,0) rotate('+(y*speeds[i]*0.03).toFixed(2)+'deg)';
+  });
+}
+
+/* ============ TILT ============ */
+document.querySelectorAll('.tilt').forEach(function(c){
+  c.addEventListener('pointermove',function(e){
+    if(window.innerWidth<900) return;
+    var r=c.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    c.style.transform='perspective(900px) rotateY('+(x*7).toFixed(2)+'deg) rotateX('+(-y*7).toFixed(2)+'deg) translateY(-5px)';
+  });
+  c.addEventListener('pointerleave',function(){c.style.transform='';});
+});
+
+/* ============ ДИАГРАММА-СТЕППЕР ============ */
+var steps=[].slice.call(document.querySelectorAll('#steps .step'));
+var asmWords=[].slice.call(document.querySelectorAll('#asm span'));
+var asmTr=document.getElementById('asmTr');
+var TRS=['She…','She has…','She has been…','She has been working…','She has been working here for 3 years. — Она работает здесь уже три года.'];
+function setStep(n){
+  steps.forEach(function(s,i){ s.classList.toggle('on', i<=n); });
+  asmWords.forEach(function(w,i){
+    // 0:She 1:has 2:been 3:working 4:here 5:for 3 years
+    var need = n>=4?5 : n>=3?3 : n>=2?2 : n>=1?1 : n>=0?0 : -1;
+    w.classList.toggle('on', i<=need);
+  });
+  asmTr.textContent = n<0 ? 'Нажми на ступени — предложение соберётся' : TRS[Math.min(n,4)];
+}
+steps.forEach(function(s){
+  s.addEventListener('click',function(){ setStep(+s.dataset.i); });
+});
+document.getElementById('stepReset').addEventListener('click',function(){ setStep(-1); });
+document.getElementById('stepAuto').addEventListener('click',function(){
+  var i=0; setStep(-1);
+  var t=setInterval(function(){ setStep(i); if(++i>4) clearInterval(t); },620);
+});
+setStep(-1);
+var stepIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ document.getElementById('stepAuto').click(); stepIO.disconnect(); } });
+},{threshold:.35});
+stepIO.observe(document.getElementById('steps'));
+
+/* ============ ТАБЫ ============ */
+document.querySelectorAll('#tabs .tab').forEach(function(t){
+  t.addEventListener('click',function(){
+    document.querySelectorAll('#tabs .tab').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.pane').forEach(function(x){x.classList.remove('on');});
+    t.classList.add('on');
+    document.getElementById(t.dataset.p).classList.add('on');
+  });
+});
+
+/* ============ ОТВЕТЫ К ВИДЕО ============ */
+document.querySelectorAll('[data-ans]').forEach(function(b){
+  b.addEventListener('click',function(){
+    var p=document.getElementById(b.dataset.ans);
+    var open=p.style.display==='block';
+    p.style.display=open?'none':'block';
+    b.textContent=open?'ПОКАЗАТЬ ОТВЕТ':'СКРЫТЬ ОТВЕТ';
+  });
+});
+
+/* ============================================================
+   ВИДЕОПЛЕЕР: 6 сцен на таймлайне
+   ============================================================ */
+var SCENES=[
+  {t:0,  ttl:'PRESENT PERFECT',    sub:'CONTINUOUS',
+   cap:'Настоящее. Совершенное. Длительное. Звучит как парадокс — сейчас разберём.'},
+  {t:9,  ttl:'ЭТО РЕМОНТ',         sub:'начал в марте — идёт до сих пор',
+   cap:'Ремонт нельзя закончить. Его можно только приостановить. Началось в прошлом, длится сейчас.',line:true},
+  {t:19, ttl:'ФОРМУЛА',            sub:'have/has + been + V-ing',
+   cap:'have — связь с настоящим. been — цемент. -ing — длительность. Три детали, ни одной лишней.',bricks:true},
+  {t:31, ttl:'HOW LONG?',          sub:'главный вопрос этого времени',
+   cap:'for two hours, since 1993, all morning. Если в голове звучит «как долго» — это оно.',line:true},
+  {t:41, ttl:'НЕ ПУТАЙ',           sub:'process ≠ result',
+   cap:'I have been reading — читаю уже сколько-то. I have read — прочитал, вот результат.'},
+  {t:51, ttl:'STATIVE VERBS',      sub:'know, love, need — мимо',
+   cap:'Глаголы состояния в Continuous не ставятся. I have known her — и точка.'},
+];
+var DUR=60;
+var vPlay=document.getElementById('vPlay'), vIcon=document.getElementById('vIcon');
+var vSeek=document.getElementById('vSeek'), vSeekFill=vSeek.querySelector('i');
+var vTime=document.getElementById('vTime'), vCap=document.getElementById('vCap');
+var vTitle=document.getElementById('vTitle'), vSub=document.getElementById('vSub');
+var vLine=document.getElementById('vLine'), vFill=document.getElementById('vFill'), vDot=document.getElementById('vDot');
+var vBricks=document.getElementById('vBricks'), vGlow=document.getElementById('vGlow');
+var vChapters=document.getElementById('vChapters');
+var vsvg=document.getElementById('vsvg'), vStage=document.querySelector('.stage');
+var vAxis=document.getElementById('vAxis'), vNowTick=document.getElementById('vNowTick');
+var vLabPast=document.getElementById('vLabPast'), vLabNow=document.getElementById('vLabNow'), vLabQ=document.getElementById('vLabQ');
+
+/* Две раскладки сцены. На узком экране viewBox сжимается,
+   а кубики встают в столбик — иначе текст рендерится по 6-9px. */
+var WIDE={
+  vb:'0 0 800 400', cx:400, titleY:120, titleFS:46, subY:168, subFS:21,
+  ax0:90, ax1:710, axNow:560, axY:300, labY:332, labFS:15, labQx:700,
+  glow:{cx:400,cy:200,r:260},
+  brick:{x:200,y:215,w:140,h:66,gap:160,fs:22,vertical:false}
+};
+/* нижние ~25% viewBox оставлены пустыми — там лежат субтитры поверх сцены */
+var NARROW={
+  vb:'0 0 400 340', cx:200, titleY:66, titleFS:44, subY:100, subFS:22,
+  ax0:52, ax1:352, axNow:280, axY:200, labY:234, labFS:17, labQx:352,
+  glow:{cx:200,cy:140,r:210},
+  brick:{x:90,y:104,w:220,h:40,gap:56,fs:20,vertical:true}
+};
+var LAY=WIDE, brickEls=[];
+
+function buildBricks(L){
+  var b=L.brick;
+  vBricks.innerHTML='';
+  ['have/has','been','V-ing'].forEach(function(txt,i){
+    var x=b.vertical?b.x:b.x+i*b.gap;
+    var y=b.vertical?b.y+i*b.gap:b.y;
+    var plus='';
+    if(i<2){
+      plus = b.vertical
+        ? '<text x="'+L.cx+'" y="'+(y+b.h+14)+'" fill="#8b5cf6" font-size="22" font-weight="800" font-family="Montserrat,Arial" text-anchor="middle">+</text>'
+        : '<text x="'+(x+b.w+12)+'" y="'+(y+b.h/2+9)+'" fill="#8b5cf6" font-size="26" font-weight="800" font-family="Montserrat,Arial" text-anchor="middle">+</text>';
+    }
+    var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.innerHTML='<rect x="'+x+'" y="'+y+'" rx="14" width="'+b.w+'" height="'+b.h+'" fill="#2b2140" stroke="#8b5cf6" stroke-width="2"/>'+
+      '<text x="'+(x+b.w/2)+'" y="'+(y+b.h/2+b.fs*0.35)+'" fill="#e6dcff" font-size="'+b.fs+'" font-weight="700" font-family="Montserrat,Arial" text-anchor="middle">'+txt+'</text>'+plus;
+    g.setAttribute('opacity','0');
+    vBricks.appendChild(g);
+  });
+  brickEls=[].slice.call(vBricks.children);
+}
+function layoutStage(){
+  /* тот же порог, что и в CSS, иначе пропорция кадра и viewBox разъезжаются */
+  var L = window.matchMedia('(min-width:768px)').matches ? WIDE : NARROW;
+  if(L===LAY && brickEls.length) return;
+  LAY=L;
+  vsvg.setAttribute('viewBox',L.vb);
+  vGlow.setAttribute('cx',L.glow.cx); vGlow.setAttribute('cy',L.glow.cy); vGlow.setAttribute('r',L.glow.r);
+  vTitle.setAttribute('x',L.cx); vTitle.setAttribute('font-size',L.titleFS);
+  vSub.setAttribute('x',L.cx); vSub.setAttribute('y',L.subY); vSub.setAttribute('font-size',L.subFS);
+  vAxis.setAttribute('x1',L.ax0); vAxis.setAttribute('x2',L.ax1);
+  vAxis.setAttribute('y1',L.axY); vAxis.setAttribute('y2',L.axY);
+  vFill.setAttribute('x1',L.ax0); vFill.setAttribute('x2',L.ax0);
+  vFill.setAttribute('y1',L.axY); vFill.setAttribute('y2',L.axY);
+  vNowTick.setAttribute('x1',L.axNow); vNowTick.setAttribute('x2',L.axNow);
+  vNowTick.setAttribute('y1',L.axY-22); vNowTick.setAttribute('y2',L.axY+22);
+  vDot.setAttribute('cx',L.ax0); vDot.setAttribute('cy',L.axY);
+  vLabPast.setAttribute('x',L.ax0); vLabPast.setAttribute('y',L.labY); vLabPast.setAttribute('font-size',L.labFS);
+  vLabNow.setAttribute('x',L.axNow); vLabNow.setAttribute('y',L.labY); vLabNow.setAttribute('font-size',L.labFS);
+  vLabQ.setAttribute('x',L.labQx); vLabQ.setAttribute('y',L.labY); vLabQ.setAttribute('font-size',L.labFS);
+  buildBricks(L);
+}
+
+SCENES.forEach(function(s,i){
+  var b=document.createElement('button');
+  b.textContent=(i+1)+'. '+s.ttl;
+  b.addEventListener('click',function(){ seek(s.t+0.05); if(!playing) toggle(); });
+  vChapters.appendChild(b);
+  var mk=document.createElement('span');
+  mk.className='mk'; mk.style.left=(s.t/DUR*100)+'%';
+  vSeek.appendChild(mk);
+});
+var chapBtns=[].slice.call(vChapters.children);
+
+var tCur=0, playing=false, last=0, raf=null;
+function fmt(s){var m=Math.floor(s/60),x=Math.floor(s%60);return m+':'+(x<10?'0':'')+x;}
+function sceneAt(t){var k=0;SCENES.forEach(function(s,i){if(t>=s.t)k=i;});return k;}
+function render(){
+  var k=sceneAt(tCur), s=SCENES[k];
+  var local=tCur-s.t, next=(k+1<SCENES.length?SCENES[k+1].t:DUR)-s.t;
+  var fadeIn=Math.min(1,local/0.7), fadeOut=Math.min(1,(next-local)/0.6);
+  var a=Math.max(0,Math.min(fadeIn,fadeOut));
+
+  vTitle.textContent=s.ttl; vTitle.setAttribute('opacity',a);
+  vSub.textContent=s.sub;   vSub.setAttribute('opacity',a*.9);
+  vTitle.setAttribute('y', LAY.titleY - (1-fadeIn)*18);
+  vCap.textContent=s.cap; vCap.style.opacity=a;
+  vGlow.setAttribute('opacity', (.22+0.16*Math.sin(tCur*1.6)).toFixed(3));
+
+  // таймлайн
+  vLine.setAttribute('opacity', s.line?a:0);
+  if(s.line){
+    var pr=Math.min(1,local/(next*0.8));
+    var x=LAY.ax0+pr*(LAY.axNow-LAY.ax0);
+    vFill.setAttribute('x2',x); vDot.setAttribute('cx',x);
+    vDot.setAttribute('r', 9+2*Math.sin(tCur*5));
+  }
+  // кубики
+  vBricks.setAttribute('opacity', s.bricks?1:0);
+  if(s.bricks){
+    brickEls.forEach(function(g,i){
+      var on=Math.max(0,Math.min(1,(local-i*1.6)/0.6))*fadeOut;
+      g.setAttribute('opacity',on);
+      g.setAttribute('transform','translate(0,'+((1-on)*22).toFixed(1)+')');
+    });
+  }
+  vSeekFill.style.width=(tCur/DUR*100)+'%';
+  vTime.textContent=fmt(tCur);
+  chapBtns.forEach(function(b,i){b.classList.toggle('on',i===k);});
+}
+function loop(ts){
+  if(!playing) return;
+  if(!last) last=ts;
+  tCur+=(ts-last)/1000; last=ts;
+  if(tCur>=DUR){ tCur=0; playing=false; setIcon(false); }
+  render();
+  if(playing) raf=requestAnimationFrame(loop);
+}
+function setIcon(p){
+  vIcon.innerHTML = p ? '<rect x="2" y="1" width="4" height="14"/><rect x="9" y="1" width="4" height="14"/>'
+                      : '<path d="M2 1l11 7-11 7z"/>';
+}
+function toggle(){
+  playing=!playing; setIcon(playing); last=0;
+  if(playing) raf=requestAnimationFrame(loop); else cancelAnimationFrame(raf);
+}
+function seek(t){ tCur=Math.max(0,Math.min(DUR-0.1,t)); render(); }
+vPlay.addEventListener('click',toggle);
+vSeek.addEventListener('click',function(e){
+  var r=vSeek.getBoundingClientRect();
+  seek((e.clientX-r.left)/r.width*DUR);
+});
+layoutStage(); render();
+window.addEventListener('resize',function(){ layoutStage(); render(); });
+// автопауза при уходе секции с экрана
+new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(!e.isIntersecting && playing) toggle(); });
+},{threshold:.15}).observe(document.getElementById('s7'));
+
+/* ============================================================
+   ТРЕНАЖЁР
+   ============================================================ */
+var QS=[
+  {type:'build',q:'Собери утверждение',hint:'Она живёт в Нью-Йорке с 1993 года.',
+   words:['She','has','been','living','in New York','since 1993'],
+   ans:'She has been living in New York since 1993',
+   exp:'has (3-е лицо) + been + living. since — точка старта в прошлом.'},
+  {type:'gap',q:'George ___ in this school for three years.',hint:'teach · Джордж преподаёт три года',
+   ans:['has been teaching'],
+   exp:'George = he → has been + teaching. for three years = длительность.'},
+  {type:'pick',q:'They ___ their work for today.',hint:'Работа закончена — виден результат',
+   opts:['have finished','have been finishing','are finishing','has finished'],ok:0,
+   exp:'Результат готов, процесс не важен → Present Perfect, а не Continuous.'},
+  {type:'gap',q:'Tara ___ well for two weeks.',hint:'feel · отрицание: не чувствует себя хорошо',
+   ans:['has not been feeling','hasn’t been feeling','hasn\'t been feeling'],
+   exp:'not встаёт сразу после has: has not been feeling. Не «has been not».'},
+  {type:'build',q:'Собери вопрос',hint:'Как долго ты уже в Москве?',
+   words:['How long','have','you','been','staying','in Moscow'],
+   ans:'How long have you been staying in Moscow',
+   exp:'Wh-слово → have → подлежащее → been → V-ing. Порядок железный.'},
+  {type:'pick',q:'Какое предложение НЕВЕРНО?',hint:'Ищи глагол состояния',
+   opts:['I have been waiting for an hour.','I have been knowing her for years.','She has been working since 9.','It has been raining all day.'],ok:1,
+   exp:'know — stative verb, в Continuous не ставится. Правильно: I have known her for years.'},
+  {type:'gap',q:'Since early morning I ___ this essay.',hint:'write · Я пишу это эссе с раннего утра',
+   ans:['have been writing'],
+   exp:'I → have been + writing. Since early morning — маркер старта.'},
+  {type:'pick',q:'We ___ our time together right now.',hint:'Прямо в эту секунду',
+   opts:['have been enjoying','are enjoying','enjoy','have enjoyed'],ok:1,
+   exp:'Нет точки старта в прошлом, есть только «прямо сейчас» → Present Continuous.'},
+  {type:'build',q:'Собери отрицание',hint:'Бабушка не навещает нас с марта.',
+   words:['My grandma','hasn’t','been','visiting','us','since March'],
+   ans:'My grandma hasn’t been visiting us since March',
+   exp:'hasn’t = has not. Дальше been + visiting без изменений.'},
+  {type:'gap',q:'How long ___ you ___ English?',hint:'learn · два пропуска через пробел: напиши целиком «have been learning»',
+   ans:['have been learning'],free:true,
+   exp:'Ответ: How long have you been learning English? Пиши всю связку have been learning.'},
+  {type:'pick',q:'Как перевести: "I have been so lazy today"?',hint:'Смотри, завершилось действие или нет',
+   opts:['Я сегодня был таким ленивым','Я сегодня буду ленивым','Я сейчас ленюсь','Я всегда ленивый'],ok:0,
+   exp:'Действие уже завершилось → русский перевод в прошедшем времени, глагол несовершенного вида.'},
+  {type:'pick',q:'She ___ away in the kitchen all day.',hint:'Важно, СКОЛЬКО она там',
+   opts:['has worked','has been working','was working','works'],ok:1,
+   exp:'all day = длительность, действие тянется до сейчас → Present Perfect Continuous.'}
+];
+
+var qi=0,score=0,streak=0,answered=false,built=[];
+var qType=document.getElementById('qType'),qCount=document.getElementById('qCount'),
+    qText=document.getElementById('qText'),qHint=document.getElementById('qHint'),
+    qArea=document.getElementById('qArea'),qFb=document.getElementById('qFb'),
+    trBar=document.getElementById('trBar'),sScore=document.getElementById('sScore'),
+    sStreak=document.getElementById('sStreak'),qBox=document.getElementById('qBox'),
+    qResult=document.getElementById('qResult');
+var btnCheck=document.getElementById('btnCheck'),btnSkip=document.getElementById('btnSkip'),
+    btnNext=document.getElementById('btnNext');
+
+var LABEL={build:'СОБЕРИ ПРЕДЛОЖЕНИЕ',gap:'ЗАПОЛНИ ПРОПУСК',pick:'ВЫБЕРИ ВЕРНЫЙ ВАРИАНТ'};
+
+function norm(s){
+  return s.toLowerCase().replace(/[.,!?]/g,'').replace(/’/g,"'").replace(/\s+/g,' ').trim();
+}
+function shuffle(a){
+  a=a.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+function render_q(){
+  var q=QS[qi];
+  answered=false; built=[];
+  qType.textContent=LABEL[q.type];
+  qCount.textContent='Вопрос '+(qi+1)+' из '+QS.length;
+  qText.innerHTML=q.q.replace(/___/g,'<span class="slot">?</span>');
+  if(synth && /[a-z]/i.test(q.q)){
+    var said=ttsEnglishPart(q.q);
+    qText.appendChild(ttsButton(function(){ return said; }));
+  }
+  qHint.textContent=q.hint;
+  qFb.className='fb'; qFb.innerHTML='';
+  btnNext.disabled=true; btnCheck.disabled=false; btnSkip.disabled=false;
+  trBar.style.width=(qi/QS.length*100)+'%';
+  qArea.innerHTML='';
+
+  if(q.type==='pick'){
+    var box=document.createElement('div'); box.className='opts';
+    q.opts.forEach(function(o,i){
+      var b=document.createElement('button'); b.className='opt'; b.textContent=o;
+      b.addEventListener('click',function(){ if(!answered) check(i); });
+      box.appendChild(b);
+    });
+    qArea.appendChild(box);
+    btnCheck.style.display='none';
+  } else if(q.type==='build'){
+    btnCheck.style.display='';
+    var drop=document.createElement('div'); drop.className='build'; drop.id='drop';
+    drop.innerHTML='<span class="ph">Нажимай на слова снизу →</span>';
+    var pool=document.createElement('div'); pool.className='chips'; pool.id='pool';
+    shuffle(q.words).forEach(function(w){
+      var c=document.createElement('button'); c.className='chip-w'; c.textContent=w;
+      c.addEventListener('click',function(){
+        if(answered) return;
+        c.classList.add('used'); built.push({w:w,el:c});
+        redraw();
+      });
+      pool.appendChild(c);
+    });
+    qArea.appendChild(drop); qArea.appendChild(pool);
+  } else {
+    btnCheck.style.display='';
+    var inp=document.createElement('input');
+    inp.className='inp'; inp.id='gapInp'; inp.placeholder='Впиши форму глагола…';
+    inp.autocomplete='off'; inp.spellcheck=false;
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter'){ if(!answered) check(); else next(); } });
+    qArea.appendChild(inp);
+    setTimeout(function(){ if(window.innerWidth>900) inp.focus(); },50);
+  }
+}
+function redraw(){
+  var drop=document.getElementById('drop');
+  if(!built.length){ drop.innerHTML='<span class="ph">Нажимай на слова снизу →</span>'; return; }
+  drop.innerHTML='';
+  built.forEach(function(o,i){
+    var s=document.createElement('span'); s.textContent=o.w;
+    s.addEventListener('click',function(){
+      if(answered) return;
+      o.el.classList.remove('used'); built.splice(i,1); redraw();
+    });
+    drop.appendChild(s);
+  });
+}
+function feedback(ok,q){
+  qFb.className='fb on '+(ok?'good':'bad');
+  qFb.innerHTML='<b>'+(ok?'Верно.':'Мимо.')+'</b>'+q.exp;
+  if(ok){score++;streak++;} else {streak=0;}
+  sScore.textContent=score+' / '+QS.length;
+  sStreak.textContent='СЕРИЯ '+streak;
+  answered=true; btnNext.disabled=false; btnCheck.disabled=true; btnSkip.disabled=true;
+}
+function check(pickIdx){
+  var q=QS[qi], ok=false;
+  if(q.type==='pick'){
+    ok = pickIdx===q.ok;
+    var btns=qArea.querySelectorAll('.opt');
+    btns.forEach(function(b,i){
+      b.disabled=true;
+      if(i===q.ok) b.classList.add('good');
+      else if(i===pickIdx) b.classList.add('bad');
+    });
+  } else if(q.type==='build'){
+    var made=built.map(function(o){return o.w;}).join(' ');
+    ok = norm(made)===norm(q.ans);
+    var drop=document.getElementById('drop');
+    drop.style.borderColor = ok?'#16a34a':'#e11d48';
+    drop.style.background = ok?'#eafaf0':'#fdecef';
+    if(!ok) qFb.innerHTML='';
+  } else {
+    var inp=document.getElementById('gapInp');
+    ok = q.ans.some(function(a){ return norm(inp.value)===norm(a); });
+    inp.classList.add(ok?'good':'bad');
+    inp.disabled=true;
+  }
+  var q2=QS[qi];
+  if(!ok && q.type!=='pick'){
+    q2=Object.assign({},q,{exp:'Правильно: <b>'+(q.type==='build'?q.ans:q.ans[0])+'</b>. '+q.exp});
+  }
+  feedback(ok,q2);
+}
+function reveal(){
+  var q=QS[qi];
+  if(q.type==='pick'){
+    var btns=qArea.querySelectorAll('.opt');
+    btns.forEach(function(b,i){ b.disabled=true; if(i===q.ok) b.classList.add('good'); });
+  } else if(q.type==='build'){
+    var drop=document.getElementById('drop'); drop.innerHTML='';
+    q.ans.split(' ').forEach(function(w){var s=document.createElement('span');s.textContent=w;drop.appendChild(s);});
+    drop.style.borderColor='var(--acc)';
+  } else {
+    var inp=document.getElementById('gapInp'); inp.value=q.ans[0]; inp.disabled=true;
+  }
+  streak=0; sStreak.textContent='СЕРИЯ 0';
+  qFb.className='fb on bad';
+  qFb.innerHTML='<b>Ответ:</b>'+(q.type==='build'?q.ans:q.ans?q.ans[0]:q.opts[q.ok])+'. '+q.exp;
+  answered=true; btnNext.disabled=false; btnCheck.disabled=true; btnSkip.disabled=true;
+}
+function next(){
+  qi++;
+  if(qi>=QS.length){ finish(); return; }
+  render_q();
+}
+function finish(){
+  trBar.style.width='100%';
+  qBox.style.display='none';
+  qResult.classList.add('on');
+  document.getElementById('rScore').textContent=score+' / '+QS.length;
+  var p=score/QS.length;
+  var txt = p===1 ? 'Идеально. Формула у тебя в руках, а не в конспекте.'
+          : p>=.75 ? 'Крепко. Осталось добить пару мест — перечитай блок 06.'
+          : p>=.5  ? 'Нормально для первого захода. Пройди ещё раз, станет ровнее.'
+          : 'Пока хуёво, но это и не страшно. Вернись к секции 02 и прогони заново.';
+  document.getElementById('rText').textContent=txt;
+  var ring=document.getElementById('ringFg');
+  setTimeout(function(){ ring.style.strokeDashoffset=(314-314*p).toFixed(1); },140);
+}
+btnCheck.addEventListener('click',function(){ if(!answered) check(); });
+btnSkip.addEventListener('click',function(){ if(!answered) reveal(); });
+btnNext.addEventListener('click',next);
+document.getElementById('btnAgain').addEventListener('click',function(){
+  qi=0;score=0;streak=0;
+  sScore.textContent='0 / '+QS.length; sStreak.textContent='СЕРИЯ 0';
+  qResult.classList.remove('on'); qBox.style.display='';
+  document.getElementById('ringFg').style.strokeDashoffset='314';
+  render_q();
+});
+document.getElementById('btnSheet').addEventListener('click',function(){
+  var txt=[
+    'PRESENT PERFECT CONTINUOUS — ШПАРГАЛКА','',
+    'ФОРМУЛА','  + : Subject + have/has + been + V-ing',
+    '  - : Subject + have/has + not + been + V-ing',
+    '  ? : Have/Has + Subject + been + V-ing ?',
+    '  Wh: Wh + have/has + Subject + been + V-ing ?','',
+    'КОГДА','  1. Началось в прошлом',
+    '  2. Длится сейчас (или только что оборвалось)',
+    '  3. Важна ДЛИТЕЛЬНОСТЬ. Вопрос: How long?','',
+    'МАРКЕРЫ','  for (отрезок) · since (точка старта) · lately · recently',
+    '  all morning · all day · for quite a while · how long','',
+    'НЕ СТАВИТСЯ (stative verbs)','  know, love, hate, need, want, believe, remember,',
+    '  own, owe, contain, seem, cost, weigh, belong','',
+    'ПУТАНИЦА','  PPC — процесс: She has been working all day.',
+    '  Present Perfect — результат: They have finished.',
+    '  Present Continuous — прямо сейчас: We are enjoying.',
+    '  Past Continuous — закрытое прошлое: The sun was shining.','',
+    'ПЕРЕВОД','  Идёт до сих пор -> настоящее: «она учит»',
+    '  Уже оборвалось  -> прошедшее: «я был»',
+    '  Всегда глагол несовершенного вида.'
+  ].join('\n');
+  var b=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(b);
+  a.download='present-perfect-continuous-cheatsheet.txt';
+  a.click(); URL.revokeObjectURL(a.href);
+});
+/* ============================================================
+   ОЗВУЧКА — Web Speech API, без внешних сервисов
+   ============================================================ */
+var synth = window.speechSynthesis;
+var ttsVoiceSel=null, ttsRate=null, ttsFab=null, ttsCurBtn=null;
+
+function ttsPick(lang){
+  if(!synth) return null;
+  var vs=synth.getVoices();
+  if(lang==='ru') return vs.filter(function(v){return /^ru/i.test(v.lang);})[0]||null;
+  if(ttsVoiceSel && ttsVoiceSel.value){
+    var m=vs.filter(function(v){return v.name===ttsVoiceSel.value;})[0];
+    if(m) return m;
+  }
+  return vs.filter(function(v){return /^en[-_]US/i.test(v.lang);})[0]
+      || vs.filter(function(v){return /^en/i.test(v.lang);})[0] || null;
+}
+function ttsSpeak(text,btn){
+  if(!synth||!text) return;
+  text=String(text).replace(/_{2,}/g,' ... ').replace(/\s+/g,' ').trim();
+  if(!text) return;
+  synth.cancel();
+  if(ttsCurBtn){ ttsCurBtn.classList.remove('on'); }
+  // Chrome не любит speak() сразу после cancel() — даём кадр на очистку очереди
+  setTimeout(function(){
+    var ru=/[а-яё]/i.test(text);
+    var u=new SpeechSynthesisUtterance(text);
+    var v=ttsPick(ru?'ru':'en');
+    if(v){ u.voice=v; u.lang=v.lang; } else { u.lang=ru?'ru-RU':'en-US'; }
+    u.rate=ttsRate?parseFloat(ttsRate.value)||0.9:0.9;
+    u.onstart=function(){ if(btn){btn.classList.add('on');ttsCurBtn=btn;} if(ttsFab)ttsFab.classList.add('on'); };
+    u.onend=u.onerror=function(){ if(btn)btn.classList.remove('on'); if(ttsFab)ttsFab.classList.remove('on'); ttsCurBtn=null; };
+    synth.speak(u);
+  },70);
+}
+function isEnglish(s){ return /[a-z]/i.test(s) && !/[а-яё]/i.test(s); }
+/* из смешанного вопроса вытаскиваем английскую часть в кавычках */
+function ttsEnglishPart(s){
+  var m=String(s).match(/[«"„]([^»"“]*[a-z][^»"“]*)[»"“]/i);
+  return m?m[1]:s;
+}
+function ttsButton(getText){
+  var b=document.createElement('button');
+  b.type='button'; b.className='say'; b.setAttribute('aria-label','Озвучить');
+  b.title='Озвучить';
+  b.innerHTML='<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z"/></svg>';
+  b.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); ttsSpeak(getText(),b); });
+  return b;
+}
+
+if(synth){
+  var ttsBox=document.getElementById('tts');
+  ttsBox.hidden=false;
+  ttsFab=document.getElementById('ttsFab');
+  ttsVoiceSel=document.getElementById('ttsVoice');
+  ttsRate=document.getElementById('ttsRate');
+  var ttsPanel=document.getElementById('ttsPanel'), ttsRateV=document.getElementById('ttsRateV');
+
+  function fillVoices(){
+    var vs=synth.getVoices().filter(function(v){return /^en/i.test(v.lang);});
+    if(!vs.length){
+      // в системе нет английских голосов — говорим об этом прямо, а не пустым списком
+      ttsVoiceSel.innerHTML='<option value="">английских голосов в системе нет</option>';
+      ttsVoiceSel.disabled=true;
+      return;
+    }
+    ttsVoiceSel.disabled=false;
+    var keep=ttsVoiceSel.value;
+    ttsVoiceSel.innerHTML='';
+    vs.forEach(function(v){
+      var o=document.createElement('option');
+      o.value=v.name; o.textContent=v.name.replace(/^Microsoft\s+/,'')+' · '+v.lang;
+      ttsVoiceSel.appendChild(o);
+    });
+    if(keep) ttsVoiceSel.value=keep;
+  }
+  fillVoices();
+  synth.addEventListener('voiceschanged',fillVoices);
+
+  ttsFab.addEventListener('click',function(){ ttsPanel.classList.toggle('on'); });
+  ttsRate.addEventListener('input',function(){
+    ttsRateV.textContent=parseFloat(ttsRate.value).toFixed(1).replace('.',',')+'×';
+  });
+  document.getElementById('ttsStop').addEventListener('click',function(){
+    synth.cancel();
+    if(ttsCurBtn){ttsCurBtn.classList.remove('on');ttsCurBtn=null;}
+    ttsFab.classList.remove('on');
+  });
+  // на уходе со страницы речь обрывается, иначе продолжает говорить в фоне
+  window.addEventListener('pagehide',function(){ synth.cancel(); });
+
+  // кнопки только у настоящих английских фраз (русские пункты пропускаем)
+  document.querySelectorAll('.ex li .en').forEach(function(el){
+    var t=el.textContent.trim();
+    if(!isEnglish(t)) return;
+    el.appendChild(ttsButton(function(){ return t; }));
+  });
+  // примеры в карточках сравнения: берём текст до <br>, иначе фраза обрывается на <b>
+  document.querySelectorAll('.vs p').forEach(function(p){
+    var t='';
+    for(var i=0;i<p.childNodes.length;i++){
+      if(p.childNodes[i].nodeName==='BR') break;
+      t+=p.childNodes[i].textContent;
+    }
+    t=t.trim();
+    if(!isEnglish(t)) return;
+    p.appendChild(ttsButton(function(){ return t; }));
+  });
+  // собранное предложение из диаграммы
+  var asmEl=document.getElementById('asm');
+  document.querySelector('.assembled').appendChild(ttsButton(function(){
+    var on=[].slice.call(asmEl.querySelectorAll('span.on'));
+    return (on.length?on:[].slice.call(asmEl.children)).map(function(s){return s.textContent;}).join(' ');
+  }));
+}
+
+sScore.textContent='0 / '+QS.length;
+render_q();
+
+onScroll();
+})();
+</script>
 </body>
 </html>
