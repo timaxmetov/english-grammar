@@ -1,0 +1,17 @@
+# OneDrive / Windows
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+*.lnk
+
+# временные файлы офиса и редакторов
+~$*
+*.tmp
+*.bak
+*.swp
+.vscode/
+.idea/
+
+# системное
+.DS_Store
