@@ -470,6 +470,40 @@ section{position:relative}
 .ring .bgc{stroke:#eceaf2}
 .ring .fgc{stroke:url(#rg);transition:stroke-dashoffset 1.3s var(--ease)}
 
+/* ---------- ВИДЕО С YOUTUBE ---------- */
+.yt{display:grid;gap:16px;margin-top:26px}
+.yt a{
+  display:block;text-decoration:none;color:inherit;overflow:hidden;
+  background:var(--bg-2);border:1px solid var(--line);border-radius:16px;
+  transition:transform .45s var(--ease),border-color .45s,box-shadow .45s;
+}
+.yt a:hover{transform:translateY(-5px);border-color:var(--acc-3);
+  box-shadow:0 28px 50px -34px rgba(80,40,160,.6)}
+/* span по умолчанию строчный — без display:block aspect-ratio не применяется */
+.yt .thumb{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;
+  background:linear-gradient(140deg,#241a35,#3a2a55)}
+.yt .thumb img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s var(--ease)}
+.yt a:hover .thumb img{transform:scale(1.06)}
+.yt .play{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(0,0,0,.45))}
+.yt .play i{
+  width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.94);box-shadow:0 10px 26px -8px rgba(0,0,0,.6);
+  transition:transform .4s var(--ease),background .4s;
+}
+.yt a:hover .play i{transform:scale(1.12);background:#fff}
+.yt .play svg{width:20px;height:20px;fill:#e11d48;margin-left:3px}
+.yt .lang{
+  position:absolute;top:10px;left:10px;z-index:2;
+  font-size:9px;font-weight:800;letter-spacing:.12em;padding:5px 9px;border-radius:7px;
+  background:rgba(17,17,20,.82);color:#fff;
+}
+.yt .meta{display:block;padding:14px 16px 16px}
+.yt .meta b{display:block;font-size:14px;font-weight:700;line-height:1.4;letter-spacing:-.01em}
+.yt .meta span{display:block;font-size:12px;color:var(--gray);margin-top:6px;line-height:1.55}
+.yt .meta em{font-style:normal;color:var(--acc-deep);font-weight:600}
+
 /* ---------- ОЗВУЧКА ---------- */
 .say{
   display:inline-flex;align-items:center;justify-content:center;
@@ -557,6 +591,7 @@ section{position:relative}
   .stage{aspect-ratio:auto;height:360px}
   .cap{font-size:13px;line-height:1.5;bottom:14px;padding:0 16px}
   .formula{white-space:nowrap;font-size:13px}
+  .yt{grid-template-columns:1fr 1fr}
   .steps{flex-direction:row;gap:0}
   .step{flex-direction:column;flex:1;padding:0 10px 0 0;gap:12px}
   .step .track{left:46px;top:22.5px;bottom:auto;right:0;width:auto;height:3px}
@@ -607,6 +642,7 @@ section{position:relative}
   }
   #dots a:hover::after{opacity:1;transform:translateY(-50%)}
   .opts{grid-template-columns:1fr 1fr}
+  .yt{grid-template-columns:repeat(3,1fr)}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -628,7 +664,8 @@ section{position:relative}
   <a href="#s5" data-t="05 Stative"></a>
   <a href="#s6" data-t="06 Сравнение"></a>
   <a href="#s7" data-t="07 Видео"></a>
-  <a href="#s8" data-t="08 Тренажёр"></a>
+  <a href="#s8" data-t="08 Видео YouTube"></a>
+  <a href="#s9" data-t="09 Тренажёр"></a>
   <a href="#end" data-t="Финал"></a>
 </nav>
 
@@ -656,7 +693,7 @@ section{position:relative}
 
     <div class="hero-cta">
       <button class="btn" data-go="#s2">РАЗОБРАТЬ ФОРМУЛУ</button>
-      <button class="btn ghost" data-go="#s8">СРАЗУ К ТРЕНАЖЁРУ</button>
+      <button class="btn ghost" data-go="#s9">СРАЗУ К ТРЕНАЖЁРУ</button>
     </div>
 
     <div class="scene">
@@ -1154,13 +1191,116 @@ section{position:relative}
 
 <div class="rule"></div>
 
-<!-- ================= 08 ТРЕНАЖЁР ================= -->
+<!-- ================= 08 ВИДЕО НА YOUTUBE ================= -->
 <section id="s8" class="sect">
   <div class="wrap">
     <div class="duo">
       <div class="side">
+        <h2 class="h1 grad rv">ПОСМОТРЕТЬ<br>У ДРУГИХ</h2>
+        <div class="num rv d1">08 — Подборка роликов</div>
+      </div>
+      <div class="side">
+        <div class="dan rv d1">
+          <p>Одно объяснение — это одно объяснение.</p>
+          <p>Если после моего в голове не щёлкнуло — послушай, как то же самое расскажет кто-то ещё. Иногда щёлкает с третьего раза, и это нормально.</p>
+        </div>
+        <p class="lead rv d2">
+          Шесть роликов: четыре на русском и два от BBC — для тех, кто уже готов слушать
+          объяснение на английском. Открываются в новой вкладке.
+        </p>
+      </div>
+    </div>
+
+    <div class="yt">
+      <a class="rv d1" href="https://www.youtube.com/watch?v=Fh1mQ1_pDMc" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">RU</span>
+          <img src="https://img.youtube.com/vi/Fh1mQ1_pDMc/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>Всё про Present Perfect и Present Perfect Continuous за 20 минут</b>
+          <span><em>Инглекс</em> · Разбор обоих времён сразу — удобно, когда путаешь их между собой.</span>
+        </span>
+      </a>
+
+      <a class="rv d2" href="https://www.youtube.com/watch?v=TU78I3CRVlY" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">RU</span>
+          <img src="https://img.youtube.com/vi/TU78I3CRVlY/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>Present Perfect Continuous (Английские времена)</b>
+          <span><em>Инглиш Шоу</em> · Время показано на месте в общей системе времён.</span>
+        </span>
+      </a>
+
+      <a class="rv d3" href="https://www.youtube.com/watch?v=ZcWCKMxuWZU" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">RU</span>
+          <img src="https://img.youtube.com/vi/ZcWCKMxuWZU/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>Present Perfect Continuous — настоящее завершённое продолженное</b>
+          <span><em>Pro English</em> · Спокойный разбор формулы с примерами.</span>
+        </span>
+      </a>
+
+      <a class="rv d4" href="https://www.youtube.com/watch?v=KvwdksOn7Kg" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">RU</span>
+          <img src="https://img.youtube.com/vi/KvwdksOn7Kg/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>Present Perfect Continuous. Настоящее совершенное длительное</b>
+          <span><em>Суханова Надежда</em> · Свежий ролик, много отработки на предложениях.</span>
+        </span>
+      </a>
+
+      <a class="rv d5" href="https://www.youtube.com/watch?v=70w98yeKj74" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">EN</span>
+          <img src="https://img.youtube.com/vi/70w98yeKj74/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>How to use the present perfect continuous tense — 6 Minute Grammar</b>
+          <span><em>BBC Learning English</em> · Шесть минут, чистое произношение — заодно тренировка слуха.</span>
+        </span>
+      </a>
+
+      <a class="rv d6" href="https://www.youtube.com/watch?v=pvoqkQHb3lo" target="_blank" rel="noopener noreferrer">
+        <span class="thumb">
+          <span class="lang">EN</span>
+          <img src="https://img.youtube.com/vi/pvoqkQHb3lo/hqdefault.jpg" alt="" loading="lazy" width="480" height="360" onerror="this.style.display='none'">
+          <span class="play"><i><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></i></span>
+        </span>
+        <span class="meta">
+          <b>Present perfect simple or continuous? Ask BBC Learning English</b>
+          <span><em>BBC Learning English</em> · Ровно про ту границу, где сыпется большинство.</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="foot-row rv">
+      <span>08 — Подборка роликов</span>
+      <span>4 на русском · 2 на английском</span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================= 09 ТРЕНАЖЁР ================= -->
+<section id="s9" class="sect">
+  <div class="wrap">
+    <div class="duo">
+      <div class="side">
         <h2 class="h1 grad rv">ТРЕНАЖЁР</h2>
-        <div class="num rv d1">08 — 12 заданий, три типа</div>
+        <div class="num rv d1">09 — 12 заданий, три типа</div>
       </div>
       <div class="side">
         <div class="dan rv d1">
@@ -1211,7 +1351,7 @@ section{position:relative}
       </div>
     </div>
 
-    <div class="foot-row rv"><span>08 — Тренажёр</span><span>Сборка · пропуск · выбор времени</span></div>
+    <div class="foot-row rv"><span>09 — Тренажёр</span><span>Сборка · пропуск · выбор времени</span></div>
   </div>
 </section>
 
@@ -1234,7 +1374,8 @@ section{position:relative}
         <div class="links rv d2">
           <a class="link" href="#s2"><i>02</i> Пересобрать формулу по ступеням</a>
           <a class="link" href="#s7"><i>07</i> Пересмотреть видеоразбор</a>
-          <a class="link" href="#s8"><i>08</i> Пройти тренажёр ещё раз</a>
+          <a class="link" href="#s8"><i>08</i> Посмотреть ролики на YouTube</a>
+          <a class="link" href="#s9"><i>09</i> Пройти тренажёр ещё раз</a>
           <a class="link" href="#hero"><i>↑</i> Вернуться в начало</a>
         </div>
         <div class="foot-row rv d3">
